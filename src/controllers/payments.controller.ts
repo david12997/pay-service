@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import { PaymentProviderFactory } from './../factories/payments.factory';
 import { PaymentAdapterInterface } from './../interfaces/payment.adapter.interface';
+import { MercadoPagoMethodsAvailable } from './../types/mp.payment.methods';
 
 export class PaymentsController {
     provaider: string;
@@ -24,7 +25,7 @@ export class PaymentsController {
             }    
 
             const providerPayment:PaymentAdapterInterface = this.paymentFactory.getProvider(this.provaider);
-            const data = await providerPayment.getDataProvider(this.provaider);
+            const data = await providerPayment.getDataProvider(this.provaider, [req.body]);
             return res.status(200).json({
                 data
             });
@@ -54,6 +55,8 @@ export class PaymentsController {
                     message: 'provider not found'
                 });
             }    
+
+            
 
             const providerPayment:PaymentAdapterInterface = this.paymentFactory.getProvider(this.provaider);
             const data = await providerPayment.createTransaction([req.params,req.body]);

@@ -10,7 +10,7 @@ Abstract the complexity of different payment APIs and gateways and create paymen
 #### Get provaider services information
 
 ```http
-  GET /api/v1/payment/:provaider
+  POST /api/v1/payment/:provaider
 ```
 
 | Parameter | Type     | Description                |
