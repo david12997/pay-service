@@ -14,7 +14,7 @@ export const GetData = async(urls:string[],token:string) =>{
                     'Accept': 'application/json',
                     'Authorization': `Bearer ${token}`
                     
-                },
+                }
             
             })           
         

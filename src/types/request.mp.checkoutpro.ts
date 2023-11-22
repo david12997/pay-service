@@ -44,6 +44,7 @@ export interface Seller {
     payment_methods: PaymentMethods;
     id_seller:       string;
     id_store:        string;
+    marketplace:     boolean;
 }
 
 export interface PaymentMethods {

@@ -1,3 +1,4 @@
+import { MercadoPagoServiceInterface } from "interfaces/mp.services.interface";
 import { CheckoutProMercadoPago } from "./../services/mp.ckeckoutpro";
 
 
@@ -7,7 +8,7 @@ export abstract class ServiceMercadoPagoFactory{
 
 export class MercadoPagoFactory extends ServiceMercadoPagoFactory{
     
-    getService(provaider:string):any{
+    getService(provaider:string):MercadoPagoServiceInterface{
 
         switch(provaider){
             case 'checkout pro':

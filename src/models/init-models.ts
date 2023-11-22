@@ -1,35 +1,21 @@
 import type { Sequelize } from "sequelize";
-import { proveedor as _proveedor } from "./proveedor";
-import type { proveedorAttributes, proveedorCreationAttributes } from "./proveedor";
-import { transaccion as _transaccion } from "./transaccion";
-import type { transaccionAttributes, transaccionCreationAttributes } from "./transaccion";
-import { usuario as _usuario } from "./usuario";
-import type { usuarioAttributes, usuarioCreationAttributes } from "./usuario";
+import { servicios as _servicios } from "./servicios";
+import type { serviciosAttributes, serviciosCreationAttributes } from "./servicios";
 
 export {
-  _proveedor as proveedor,
-  _transaccion as transaccion,
-  _usuario as usuario,
+  _servicios as servicios,
 };
 
 export type {
-  proveedorAttributes,
-  proveedorCreationAttributes,
-  transaccionAttributes,
-  transaccionCreationAttributes,
-  usuarioAttributes,
-  usuarioCreationAttributes,
+  serviciosAttributes,
+  serviciosCreationAttributes,
 };
 
 export function initModels(sequelize: Sequelize) {
-  const proveedor = _proveedor.initModel(sequelize);
-  const transaccion = _transaccion.initModel(sequelize);
-  const usuario = _usuario.initModel(sequelize);
+  const servicios = _servicios.initModel(sequelize);
 
 
   return {
-    proveedor: proveedor,
-    transaccion: transaccion,
-    usuario: usuario,
+    servicios: servicios,
   };
 }
