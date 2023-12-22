@@ -33,5 +33,6 @@ export class ExpressServer implements ServerInterface {
         return this.app;
     }
 
+
     // Puedes agregar más métodos según sea necesario
 }

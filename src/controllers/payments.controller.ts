@@ -10,7 +10,7 @@ export class PaymentsController {
     constructor(provaider:string, private paymentFactory:PaymentProviderFactory) {
         
         this.provaider = provaider;
-        this.providers = ['mercadopago','paypal','payU'] //provider accpeted
+        this.providers = ['mercadopago','paypal','payu'] //provider accpeted
     }
 
     // GET /api/v1/payments/:provaider
@@ -59,6 +59,7 @@ export class PaymentsController {
             
 
             const providerPayment:PaymentAdapterInterface = this.paymentFactory.getProvider(this.provaider);
+            //console.log(req.params)
             const data = await providerPayment.createTransaction([req.params,req.body]);
             return res.status(200).json({
                 data

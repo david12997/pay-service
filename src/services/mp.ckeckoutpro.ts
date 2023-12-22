@@ -1,21 +1,22 @@
 import { MercadoPagoConfig, Preference } from 'MercadoPago';
-import { TransaccionRespository } from './../repositories/transaction.repository';
+
 import { CheckoutProRequest } from './../types/request.mp.checkoutpro';
-import { transaccion } from './../models/transaccion';
 import { MercadoPagoMethodsAvailable } from './../types/mp.payment.methods';
 import { MercadoPagoServiceInterface } from './../interfaces/mp.services.interface';
 import { GetData } from './get.data';
 
+import { DatabaseAdapter } from './../infrastructure/databases/mysql2.adapter';
+import { TransactionRepository } from './../repositories/transaction.repository';
+
+
 export class CheckoutProMercadoPago implements MercadoPagoServiceInterface{
 
-    private transactionRepository: TransaccionRespository
+    private database: DatabaseAdapter;
 
-    // Constructor con configuraciones específicas de MercadoPago
     constructor() {
-
-        this.transactionRepository = new TransaccionRespository()
-     }
-
+        this.database = new DatabaseAdapter();
+       
+    }
 
     async getDataProvaider(provider: string, body:[MercadoPagoMethodsAvailable]): Promise<any> {
 
@@ -29,17 +30,17 @@ export class CheckoutProMercadoPago implements MercadoPagoServiceInterface{
                 executed:"service/mp.checoutpro.ts",
             };
         }catch(error){
+               
+            return {
                 
-                return {
-                   
-                    executed:"service/mp.checoutpro.ts",
-                    error
-                };
-            }
+                executed:"service/mp.checoutpro.ts",
+                error
+            };
+        }
 
     }
     
-    async createTransaction(params:{provider:string,idtransaction:string},body:CheckoutProRequest): Promise<any> {
+    async createTransaction(params:{provaider:string,idtransaction:string},body:CheckoutProRequest): Promise<any> {
 
         // Lógica para crar una preferencia de pago usando checkout pro de MercadoPago
         try{
@@ -84,40 +85,41 @@ export class CheckoutProMercadoPago implements MercadoPagoServiceInterface{
             })
 
             const dataTransaction ={
-                provider:params.provider,
+                provider:params.provaider,
                 idtransaction:params.idtransaction,
                 solution:body.adapter_type,
                 status:body.status,
                 owner:body.owner,
                 transaction:createPayment
             }
-
-            const transactionData: transaccion = new transaccion();
-            transactionData.status = 'draft';
-            transactionData.owner = body.owner.id;
-            transactionData.id_provaider = 1;
-            transactionData.transaccion_usuario = 1;
-            transactionData.data_remitente = JSON.stringify(body.buyer);
-            transactionData.data_destinatario = JSON.stringify(body.seller);
-            transactionData.data_transaccion = JSON.stringify(dataTransaction);
-    
-            this.transactionRepository.create(transactionData);
-
+            const tra = new TransactionRepository(this.database.getConnection());
+            const newTransaccion = await tra.create({
+                status:'draft',
+                owner:body.owner.id,
+                id_provider:1,
+                transaccion_usuario:body.owner.id,
+                data_remitente:JSON.stringify(body.buyer),
+                data_destinatario:JSON.stringify(body.seller),
+                data_transaccion:JSON.stringify(dataTransaction)
+            
+            });
+     
+            
             return{
                 provaider: body.payment_adapter,
                 solution: body.adapter_type,
                 new_payment: {
+                    newTransaccion,
+                    dataTransaction,
                     id:params.idtransaction,
-                    transaccionId:transactionData.id,
-                    payment:createPayment,
 
                 },
                 executed:"service/mp.checoutpro.ts",
             
             }
         }
-        catch(error){
-
+        
+        catch(error: any){
             return{
                 executed:"service/mp.checoutpro.ts",
                 error

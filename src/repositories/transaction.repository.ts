@@ -1,40 +1,54 @@
+import mysql from 'mysql2/promise';
+import { transaccion } from './../types/transaccion';
 
-import { transaccion } from '../models/transaccion'; // Asegúrate de que el modelo User esté importado correctamente
 
-export class TransaccionRespository {
-    async findById(id: number): Promise<transaccion | null> {
-        return transaccion.findByPk(id);
+
+export class TransactionRepository {
+
+    private connection: mysql.Connection;
+
+    constructor(connection: mysql.Connection) {
+        this.connection = connection;
     }
 
-    // ... más métodos CRUD
-
-    async create(data: transaccion): Promise<transaccion> {
-        return transaccion.create(data);
+    async create(transaccion:transaccion): Promise<void> {
+        await this.connection.execute(
+            'INSERT INTO transaccion (status,owner,id_provaider,transaccion_usuario,data_remitente,data_destinatario,data_transaccion) VALUES (?, ?,?,?,?,?,?)',
+            [
+                transaccion.status, 
+                transaccion.owner,
+                transaccion.id_provider,
+                transaccion.transaccion_usuario,
+                transaccion.data_remitente,
+                transaccion.data_destinatario,
+                transaccion.data_transaccion
+            ]
+        );
     }
 
-    async update(id: number, data: transaccion): Promise<transaccion | null> {
-        const provaider = await transaccion.findByPk(id);
-        if (!provaider) return null;
-        return provaider.update(data);
-    }   
+    /*
+    async findById(id: number): Promise<any> {
+        const [rows]:any = await this.connection.execute(
+            'SELECT * FROM transaccion WHERE id = ?',
+            [id]
+        );
+
+        return rows[0] ;
+    }
+
+    async update(id: number, transaccion: { name: string, email: string }): Promise<void> {
+        await this.connection.execute(
+            'UPDATE transaccion SET name = ?, email = ? WHERE id = ?',
+            [transaccion.name, transaccion.email, id]
+        );
+    }
 
     async delete(id: number): Promise<void> {
-        const provaider = await transaccion.findByPk(id);
-        if (!provaider) return;
-        await provaider.destroy();
+        await this.connection.execute(
+            'DELETE FROM transaccion WHERE id = ?',
+            [id]
+        );
     }
-
-    async findAll(): Promise<transaccion[]> {
-        return transaccion.findAll();
-    }
-
-    async findByOwner(owner: number): Promise<transaccion | null> {
-        return transaccion.findOne({ where: { owner } });
-    }
-
-    async findByName(id_provaider: number): Promise<transaccion | null> {
-        return transaccion.findOne({ where: { id_provaider } });
-    }
-
+    */
 
 }
