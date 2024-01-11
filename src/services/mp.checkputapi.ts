@@ -1,16 +1,14 @@
-import { MercadoPagoConfig, Preference } from 'mercadopago';
-
-import { CheckoutProRequest } from './../types/request.mp.checkoutpro';
-import { MercadoPagoMethodsAvailable } from './../types/mp.payment.methods';
-import { MercadoPagoServiceInterface } from './../interfaces/mp.services.interface';
+import { MercadoPagoConfig, Preference } from 'mercadopago'
+import { MercadoPagoServiceInterface } from "./../interfaces/mp.services.interface";
 import { GetData } from './get.data';
 
 import { DatabaseAdapter } from './../infrastructure/databases/mysql2.adapter';
 import { TransactionRepository } from './../repositories/transaction.repository';
+import { MercadoPagoMethodsAvailable } from "types/mp.payment.methods";
 
 
-export class CheckoutProMercadoPago implements MercadoPagoServiceInterface{
 
+export class CheckoutAPIMercadoPago implements MercadoPagoServiceInterface{
     private database: DatabaseAdapter;
 
     constructor() {
@@ -19,9 +17,8 @@ export class CheckoutProMercadoPago implements MercadoPagoServiceInterface{
     }
 
     async getDataProvaider(provider: string, body:[MercadoPagoMethodsAvailable]): Promise<any> {
-
         try{
-            // Lógica para obtener los datosde ckout pro de MercadoPago
+            // Lógica para obtener los datosde checkout api de MercadoPago
             const dataPaymentsType = await GetData(['https://api.mercadopago.com/v1/payment_methods'],body[0].access_token);
                 
             return {
@@ -37,13 +34,9 @@ export class CheckoutProMercadoPago implements MercadoPagoServiceInterface{
                 error
             };
         }
-
     }
-    
-    async createTransaction(params:{provaider:string,idtransaction:string},body:CheckoutProRequest): Promise<any> {
 
-        console.log(body);  
-        console.log(params);
+    async createTransaction(params:{provaider:string,idtransaction:string},body:any): Promise<any> {
 
         // Lógica para crar una preferencia de pago usando checkout pro de MercadoPago
         try{
@@ -116,21 +109,23 @@ export class CheckoutProMercadoPago implements MercadoPagoServiceInterface{
                     newTransaccion,
                     dataTransaction,
                     id:params.idtransaction,
+                    preference_id:dataTransaction.transaction.id
 
                 },
-                executed:"service/mp.checoutpro.ts",
+                executed:"service/mp.checoutapi.ts",
             
             }
         }
         
         catch(error: any){
             return{
-                executed:"service/mp.checoutpro.ts",
+                executed:"service/mp.checoutapi.ts",
                 error
             }
         }
 
     }
+
 
 
 }

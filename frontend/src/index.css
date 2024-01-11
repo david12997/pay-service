@@ -1,0 +1,16 @@
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+@font-face {
+    font-family: 'Changa';
+    src: url('./assets/Changa-VariableFont_wght.ttf') format('truetype');
+  }
+
+
+
+body{
+    
+    font-family: 'Changa', sans-serif;
+    overflow-x: hidden;
+
+}
