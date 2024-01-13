@@ -14,3 +14,7 @@ body{
     overflow-x: hidden;
 
 }
+
+.linear-gradient-bg-paylink{
+    background: linear-gradient(90deg, #4301E9 0%, #4907f0b6 100%);
+}

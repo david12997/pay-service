@@ -2,6 +2,7 @@ import { Suspense, lazy } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import ProviderPage from './pages/provider';
 import PayStatePage from './pages/pay.state';
+import PayLinkPage from './pages/paylink';
 
 
 // Utiliza React Lazy para cargar los componentes de forma diferida
@@ -45,6 +46,12 @@ function App() {
        <Route path="/:provider/pay/failed" element={<>
         <PayStatePage state='failed' />
        </>} />
+        
+        <Route path='/:user/:paylink' element={<>
+          <PayLinkPage />
+        </>} />
+
+        <Route path="*" element={<h1>Not Found</h1>} />
 
       </Routes>
     </Suspense>

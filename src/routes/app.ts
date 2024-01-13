@@ -58,4 +58,9 @@ ReactRouter.get("/:provider/pay/:state",(req, res) => {
   res.sendFile(path.join(__dirname, '../../frontend/dist', 'index.html'));
 });
 
+ReactRouter.get("/:user/:paylink",(req, res) => {
+  res.sendFile(path.join(__dirname, '../../frontend/dist', 'index.html'));
+});
+
+
 module.exports = ReactRouter;
