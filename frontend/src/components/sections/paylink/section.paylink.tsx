@@ -4,7 +4,7 @@ import CardDataPaylink from "../../cards/carddata.paylink";
 
 const SectionPaylink = ():React.JSX.Element => {
 
-    const [screenVisible, setScreenVisible] = useState<"data" | "form">('form');
+    const [screenVisible, setScreenVisible] = useState<"data" | "form">('data');
 
     return<>
     
