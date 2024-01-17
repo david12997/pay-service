@@ -18,13 +18,13 @@ const CardDataPaylink = (props:CardDataPaylinkProps):React.JSX.Element => {
                         Por concepto de
                     </div>
 
-                    <h1 className="flex text-[18px] md:text-[24px] items-center font-bold">
+                    <h1 className="flex text-[18px] md:text-[24px] items-center font-bold mb-2 mt-1">
                         <span className="mr-2">
                             <IconCheckPaylikCard />
                         </span>
                             Servicios de diseño grafico
                     </h1>
-                    <h1 className="flex text-[18px] md:text-[24px] items-center font-bold">
+                    <h1 className="flex text-[18px] md:text-[24px] items-center font-bold mb-2 mt-1">
                         <span className="mr-2">
                             <IconCheckPaylikCard />
                         </span>

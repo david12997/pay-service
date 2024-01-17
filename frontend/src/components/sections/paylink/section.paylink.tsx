@@ -13,13 +13,13 @@ const SectionPaylink = ():React.JSX.Element => {
         {
             screenVisible === 'data' ?
             <>
-                <span className="w-[100%] md:w-[50%] flex justify-center items-center">
+                <span className="w-[100%] md:w-[63%] flex justify-center items-center">
                     <CardDataPaylink setScreenVisible={setScreenVisible} />
                 </span>
             </>
             :
             <>
-                <span className="w-[100%] md:w-[50%] flex justify-center items-center">
+                <span className="w-[100%] md:w-[63%] flex justify-center items-center">
                     <CardFormPaylink setScreenVisible={setScreenVisible} />     
                 </span>
             </>

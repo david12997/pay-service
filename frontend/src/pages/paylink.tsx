@@ -7,7 +7,7 @@ const PayLinkPage = ():React.JSX.Element => {
         <main className="relative w-screen h-screen overflow-x-hidden bg-[#dbdbdb]">
             <div className="w-screen h-[35vh] linear-gradient-bg-paylink absolute top-0"></div>
 
-            <nav className="relative flex justify-between items-center w-screen md:w-[90%] ml-[5%] h-[60px] p-2 md:p-4 mb-6">
+            <nav className="relative flex justify-between items-center w-[100%] md:w-[90%] md:ml-[5%] h-[60px] p-2 md:p-4 mb-6">
                 <div className="logo h-[50px] w-[50px] flex items-center justify-center">
                     <img className="w-[40px]" src="https://pay-service-cms.aipus.co/aipus-pay-service/assets/m8lpvfnt7esgo8go" alt="logo" />
                 </div>

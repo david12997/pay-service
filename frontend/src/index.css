@@ -12,9 +12,26 @@ body{
     
     font-family: 'Changa', sans-serif;
     overflow-x: hidden;
+    background-color: #E9E9E9;
 
 }
 
 .linear-gradient-bg-paylink{
     background: linear-gradient(90deg, #4301E9 0%, #4907f0b6 100%);
 }
+
+/* scroll bar styles */
+*::-webkit-scrollbar {
+    width: 10px; 
+    height:10px;              /* width of the entire scrollbar */
+  }
+  
+  *::-webkit-scrollbar-track {
+    background: transparent;        /* color of the tracking area */
+  }
+  
+  *::-webkit-scrollbar-thumb {
+    background-color: #b0b0b05e;    /* color of the scroll thumb */
+    border-radius: 20px;       /* roundness of the scroll thumb */
+    border: 3px solid transparent;  /* creates padding around scroll thumb */
+  }

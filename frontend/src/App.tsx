@@ -3,6 +3,9 @@ import { Route, Routes } from 'react-router-dom';
 import ProviderPage from './pages/provider';
 import PayStatePage from './pages/pay.state';
 import PayLinkPage from './pages/paylink';
+import LoginPage from './pages/login.page';
+import SignUpPage from './pages/sign.up';
+import HomePage from './pages/home';
 
 
 // Utiliza React Lazy para cargar los componentes de forma diferida
@@ -15,12 +18,22 @@ function App() {
   return (
     <Suspense fallback={<div>Loading...</div>}> {/* Fallback mientras los componentes se cargan */}
       <Routes>
-        <Route path="/" element={<h1> Root</h1>} />
-        <Route path="/login" element={<h1> Login </h1>} />
+        <Route path="/" element={<>
+          <IndexPageLazy />
+        </>} />
+
+        <Route path="/ingresar" element={<>
+            <LoginPage />
+        </>
+        } />
+
+        <Route path="/registarse" element={<>
+            <SignUpPage />
+        </>
+        } />
 
         <Route path="/home" element={<>
-          <Navbar />
-          <IndexPageLazy />
+          <HomePage/>
         </>}/>
 
         <Route path="/home/new-link" element={<>
@@ -47,7 +60,7 @@ function App() {
         <PayStatePage state='failed' />
        </>} />
         
-        <Route path='/:user/:paylink' element={<>
+        <Route path='links/:user/:paylink' element={<>
           <PayLinkPage />
         </>} />
 

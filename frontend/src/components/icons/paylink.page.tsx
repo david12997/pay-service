@@ -29,7 +29,10 @@ export const IconArrowReturn = ():React.JSX.Element => {
     </>
 }
 
-export const IconHamburguerPaylink = ():React.JSX.Element => {
+export type IconHamburguerPaylinkProps = {
+    color?: string
+}
+export const IconHamburguerPaylink = (props:IconHamburguerPaylinkProps):React.JSX.Element => {
 
     return<>
         <svg width="37" height="28" viewBox="0 0 37 28" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -37,7 +40,7 @@ export const IconHamburguerPaylink = ():React.JSX.Element => {
             <rect fill="white" width="37" height="28"/>
             <path d="M2 26H35ZM2 14H35ZM2 2H35Z"/>
             </mask>
-            <path d="M2 24C0.895431 24 0 24.8954 0 26C0 27.1046 0.895431 28 2 28V24ZM35 28C36.1046 28 37 27.1046 37 26C37 24.8954 36.1046 24 35 24V28ZM2 12C0.895431 12 0 12.8954 0 14C0 15.1046 0.895431 16 2 16V12ZM35 16C36.1046 16 37 15.1046 37 14C37 12.8954 36.1046 12 35 12V16ZM2 0C0.895431 0 0 0.895431 0 2C0 3.10457 0.895431 4 2 4V0ZM35 4C36.1046 4 37 3.10457 37 2C37 0.895431 36.1046 0 35 0V4ZM2 28H35V24H2V28ZM2 16H35V12H2V16ZM2 4H35V0H2V4Z" fill="white" mask="url(#path-1-outside-1_56_507)"/>
+            <path d="M2 24C0.895431 24 0 24.8954 0 26C0 27.1046 0.895431 28 2 28V24ZM35 28C36.1046 28 37 27.1046 37 26C37 24.8954 36.1046 24 35 24V28ZM2 12C0.895431 12 0 12.8954 0 14C0 15.1046 0.895431 16 2 16V12ZM35 16C36.1046 16 37 15.1046 37 14C37 12.8954 36.1046 12 35 12V16ZM2 0C0.895431 0 0 0.895431 0 2C0 3.10457 0.895431 4 2 4V0ZM35 4C36.1046 4 37 3.10457 37 2C37 0.895431 36.1046 0 35 0V4ZM2 28H35V24H2V28ZM2 16H35V12H2V16ZM2 4H35V0H2V4Z" fill={props.color === undefined ?"white":props.color } mask="url(#path-1-outside-1_56_507)"/>
         </svg>
 
     </>
