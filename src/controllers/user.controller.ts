@@ -1,0 +1,93 @@
+import { Request, Response } from 'express';
+import { user } from 'types/user';
+import { UserService } from './../services/user.services';
+import { stat } from 'fs';
+
+export class userController {
+    
+    user:user
+
+    constructor(user:user) {
+        
+        this.user = user;
+        
+    }
+
+    // POST /api/v1/user/sign-up
+    async createUser(req: user, res: Response) {
+
+        try{
+            const userServices = new UserService();
+            const hashPassword = await userServices.hashPassword(this.user.password);
+            this.user.password=hashPassword;
+            userServices.setUser=this.user;
+            const createUser = await userServices.create(userServices.getUser)
+
+            return res.status(200).json({
+                message: 'user created user.controller',
+                createUser
+
+                
+            });
+            
+    
+        }catch(error){
+
+            return res.status(500).json({
+                message: 'user.controller internal server error while creating user',
+                error
+            });
+        }
+    
+    }
+
+    // POST /api/v1/user/sign-in
+    async signIn(req: {email:string,password:string}, res: Response) {
+
+        try{
+            this.user.email=req.email;
+            this.user.password=req.password;
+            const userService = new UserService();
+            userService.setUser=this.user;
+           
+            const user = await userService.findUserByEmail(req.email);
+            if(!user){
+                return res.status(404).json({
+                    message: 'user not found'
+                });
+            }
+            
+
+            const validPassword = await userService.validatePassword(req.password, user.password);
+            if(!validPassword){
+                return res.status(401).json({
+                    message: 'invalid password'
+                });
+            }
+
+            const token = await userService.generateToken(user);
+            return res.status(200).json({
+                token,
+                user: {
+                    username: user.name,
+                    email: user.email,
+                    status: user.status,
+                    phone: user.phone,
+                    nit: user.nit,
+
+                }
+                
+            });
+    
+        }catch(error){
+
+            return res.status(500).json({
+                message: 'internal server error',
+                error
+            });
+        }
+    
+    }
+
+    
+}

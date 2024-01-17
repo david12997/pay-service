@@ -10,7 +10,21 @@ const ReactApp = Router();
  * @desc agrupa todas las rutas relacionadas con pagos, pasarelas,  proveedores y transacciones.
  */
 ApiV1.use('/payments/', require('./payments'));
+
+
+/**
+ * @routes  /api/v1/notifications/*
+ * @desc agrupa todas las rutas relacionadas con notificaciones.
+ */
 ApiV1.use('/notifications/', require('./notifications'));
+
+
+/**
+ * @routes  /api/v1/user/*
+ * @desc agrupa todas las rutas relacionadas con usuarios.
+ */
+
+ApiV1.use('/user/', require('./user'));
 
 
 /**

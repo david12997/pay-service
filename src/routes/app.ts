@@ -15,14 +15,24 @@ ReactRouter.get("/",(req, res) => {
 });
 
 /**
- * @route GET // /login
+ * @route GET // /ingresar
  * @desc login user.
  * @access Publico
  */
 
-ReactRouter.get("/login",(req, res) => {
+ReactRouter.get("/ingresar",(req, res) => {
     res.sendFile(path.join(__dirname, '../../frontend/dist', 'index.html'));
   });
+
+  /**
+ * @route GET // /registarse
+ * @desc register user.
+ * @access Publico
+ */
+
+ReactRouter.get("/registrarse",(req, res) => {
+  res.sendFile(path.join(__dirname, '../../frontend/dist', 'index.html'));
+});
 
 /**
  * @route GET // /home
@@ -58,7 +68,7 @@ ReactRouter.get("/:provider/pay/:state",(req, res) => {
   res.sendFile(path.join(__dirname, '../../frontend/dist', 'index.html'));
 });
 
-ReactRouter.get("/:user/:paylink",(req, res) => {
+ReactRouter.get("links/:user/:paylink",(req, res) => {
   res.sendFile(path.join(__dirname, '../../frontend/dist', 'index.html'));
 });
 

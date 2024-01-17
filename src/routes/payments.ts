@@ -2,6 +2,7 @@ import { PaymentProviderFactory } from "./../factories/payments.factory";
 import { PaymentsController } from "./../controllers/payments.controller";
 import { NextFunction, Request, Response, Router } from "express";
 import { body, validationResult } from 'express-validator';
+import { authenticateToken } from "./../middlewares/auth.middleware";
 
 const PaymentRouter = Router();
 
@@ -12,7 +13,7 @@ const PaymentRouter = Router();
  */
 
 
-PaymentRouter.post("/:provider",     
+PaymentRouter.post("/:provider",authenticateToken,     
 
     body('payment_adapter').exists().withMessage('payment_adapter is required'),
     body('adapter_type').exists().withMessage('adapter_type is required'),
@@ -58,7 +59,7 @@ PaymentRouter.post("/:provider",
  * @access Publico
  */
 
-PaymentRouter.post("/:provider/transaction/:idtransaction", 
+PaymentRouter.post("/:provider/transaction/:idtransaction",authenticateToken, 
 
     body('payment_adapter').exists().withMessage('payment_adapter is required'),
     body('adapter_type').exists().withMessage('adapter_type is required'),

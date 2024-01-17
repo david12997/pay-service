@@ -42,8 +42,8 @@ export class CheckoutProMercadoPago implements MercadoPagoServiceInterface{
     
     async createTransaction(params:{provaider:string,idtransaction:string},body:CheckoutProRequest): Promise<any> {
 
-        console.log(body);  
-        console.log(params);
+        //console.log(body);  
+        //console.log(params);
 
         // Lógica para crar una preferencia de pago usando checkout pro de MercadoPago
         try{
@@ -96,6 +96,8 @@ export class CheckoutProMercadoPago implements MercadoPagoServiceInterface{
                 owner:body.owner,
                 transaction:createPayment
             }
+            
+            await this.database.connect();
             const transactionRepo = new TransactionRepository(this.database.getConnection());
             const newTransaccion = await transactionRepo.create({
                 status:'draft',
