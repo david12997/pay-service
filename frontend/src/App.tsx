@@ -27,7 +27,7 @@ function App() {
         </>
         } />
 
-        <Route path="/registarse" element={<>
+        <Route path="/registrarse" element={<>
             <SignUpPage />
         </>
         } />
