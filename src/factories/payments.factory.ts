@@ -5,7 +5,7 @@ import { PaymentPayUAdapter } from "../services/payment.payu";
 
 
 export abstract class PaymentFactory{
-    abstract getProvider(provaider:string):PaymentAdapterInterface;
+    abstract getProvider(provider:string):PaymentAdapterInterface;
 }
 
 export class PaymentProviderFactory extends PaymentFactory {

@@ -4,18 +4,20 @@ export class DatabaseAdapter {
     private connection: mysql.Connection | null = null;
 
     constructor() {
-        
-        this.connect();
+        // No intentes conectar aquí
     }
 
-    private async connect(): Promise<void> {
-        this.connection = await mysql.createConnection({
-            host: process.env.DATABASE_HOST,
-            user: process.env.DATABASE_USER,
-            password: process.env.DATABASE_PASSWORD,
-            database: process.env.DATABASE_NAME,
-            port: Number(process.env.DATABASE_PORT)
-        });
+    public async connect(): Promise<void> {
+        if (!this.connection) {
+            this.connection = await mysql.createConnection({
+                host: process.env.DATABASE_HOST,
+                user: process.env.DATABASE_USER,
+                password: process.env.DATABASE_PASSWORD,
+                database: process.env.DATABASE_NAME,
+                port: Number(process.env.DATABASE_PORT)
+            });
+            console.log('Database connection established');
+        }
     }
 
     public getConnection(): mysql.Connection {

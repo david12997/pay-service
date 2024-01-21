@@ -46,8 +46,8 @@ export class PaymentMercadoPagoAdapter implements PaymentAdapterInterface {
             const [params,body] = data as [{provaider:string,idtransaction:string},CheckoutProRequest];
 
             const mpService = this.mpFactory.getService(body.adapter_type);
-            //console.log(params);
-            const createPayment = await mpService.createTransaction(params.provaider,body);
+            
+            const createPayment = await mpService.createTransaction(params,body);
     
             return{
                 provaider: 'mercadopago',

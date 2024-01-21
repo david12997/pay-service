@@ -1,0 +1,46 @@
+
+{
+    "openapi": "3.0.0",
+    "info": {
+      "title": "Mi API",
+      "version": "1.0.0"
+    },
+    "paths": {
+      "/payments": {
+        "get": {
+          "summary": "Obtener una lista de pagos",
+          "responses": {
+            "200": {
+              "description": "Una lista de pagos"
+            }
+          }
+        },
+        "post": {
+          "summary": "Crear un nuevo pago",
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "amount": {
+                      "type": "number"
+                    },
+                    "method": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "responses": {
+            "201": {
+              "description": "El pago se creó con éxito"
+            }
+          }
+        }
+      }
+    }
+  }

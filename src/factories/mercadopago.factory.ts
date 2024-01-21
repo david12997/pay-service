@@ -1,18 +1,23 @@
 import { MercadoPagoServiceInterface } from "interfaces/mp.services.interface";
 import { CheckoutProMercadoPago } from "./../services/mp.ckeckoutpro";
+import { CheckoutAPIMercadoPago } from "./../services/mp.checkputapi";
 
 
 export abstract class ServiceMercadoPagoFactory{
-    abstract getService(provaider:string,service:string):any;
+    abstract getService(service_mp:string):any;
 }
 
-export class MercadoPagoFactory extends ServiceMercadoPagoFactory{
+export class MercadoPagoFactory implements ServiceMercadoPagoFactory{
     
-    getService(provaider:string):MercadoPagoServiceInterface{
+    getService(service_mp:string):MercadoPagoServiceInterface{
 
-        switch(provaider){
+        switch(service_mp){
             case 'checkout pro':
                 return new CheckoutProMercadoPago();
+
+            case 'checkout api':
+                return new CheckoutAPIMercadoPago();
+
             default:
                 return new CheckoutProMercadoPago();
         }

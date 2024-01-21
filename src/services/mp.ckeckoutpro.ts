@@ -1,4 +1,4 @@
-import { MercadoPagoConfig, Preference } from 'MercadoPago';
+import { MercadoPagoConfig, Preference } from 'mercadopago';
 
 import { CheckoutProRequest } from './../types/request.mp.checkoutpro';
 import { MercadoPagoMethodsAvailable } from './../types/mp.payment.methods';
@@ -21,7 +21,7 @@ export class CheckoutProMercadoPago implements MercadoPagoServiceInterface{
     async getDataProvaider(provider: string, body:[MercadoPagoMethodsAvailable]): Promise<any> {
 
         try{
-            // Lógica para obtener los datos de un proveedor de pago usando checkout pro de MercadoPago
+            // Lógica para obtener los datosde ckout pro de MercadoPago
             const dataPaymentsType = await GetData(['https://api.mercadopago.com/v1/payment_methods'],body[0].access_token);
                 
             return {
@@ -41,6 +41,9 @@ export class CheckoutProMercadoPago implements MercadoPagoServiceInterface{
     }
     
     async createTransaction(params:{provaider:string,idtransaction:string},body:CheckoutProRequest): Promise<any> {
+
+        //console.log(body);  
+        //console.log(params);
 
         // Lógica para crar una preferencia de pago usando checkout pro de MercadoPago
         try{
@@ -79,7 +82,8 @@ export class CheckoutProMercadoPago implements MercadoPagoServiceInterface{
                 auto_return:body.transaction.auto_return,
                 shipments:{
                     cost:body.delivery.cost
-                }
+                },
+                statement_descriptor:body.transaction.statement_descriptor,
                 
             }
             })
@@ -92,8 +96,10 @@ export class CheckoutProMercadoPago implements MercadoPagoServiceInterface{
                 owner:body.owner,
                 transaction:createPayment
             }
-            const tra = new TransactionRepository(this.database.getConnection());
-            const newTransaccion = await tra.create({
+            
+            await this.database.connect();
+            const transactionRepo = new TransactionRepository(this.database.getConnection());
+            const newTransaccion = await transactionRepo.create({
                 status:'draft',
                 owner:body.owner.id,
                 id_provider:1,

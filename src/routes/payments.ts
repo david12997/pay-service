@@ -2,16 +2,18 @@ import { PaymentProviderFactory } from "./../factories/payments.factory";
 import { PaymentsController } from "./../controllers/payments.controller";
 import { NextFunction, Request, Response, Router } from "express";
 import { body, validationResult } from 'express-validator';
+import { authenticateToken } from "./../middlewares/auth.middleware";
 
 const PaymentRouter = Router();
 
 /**
- * @route POST /api/v1/payments/:provaider
- * @desc obtiene inforrmación de los  proveedores de pagos disponibles.
+ * @route POST /api/v1/payments/:provider
+ * @desc obtiene un proveedor de pago.
  * @access Publico
  */
 
-PaymentRouter.post("/:provaider",     
+
+PaymentRouter.post("/:provider",authenticateToken,     
 
     body('payment_adapter').exists().withMessage('payment_adapter is required'),
     body('adapter_type').exists().withMessage('adapter_type is required'),
@@ -32,10 +34,18 @@ PaymentRouter.post("/:provaider",
 
     },(req: Request, res: Response) => {
 
+    try{
         const factoryPayment = new PaymentProviderFactory();
-        const paymentController = new PaymentsController(req.params.provaider,factoryPayment);
-
+        const paymentController = new PaymentsController(req.params.provider,factoryPayment);
         return paymentController.getProvider(req, res);
+    }        
+    catch(error){
+        return res.status(500).json({ 
+            executed: 'routes/payments.ts',
+            message: 'error server while getting provider',
+            errors: error
+        });
+    }
         
     }
 );
@@ -44,12 +54,12 @@ PaymentRouter.post("/:provaider",
 
 
 /**
- * @route POST /api/v1/payments/:provaider/transaction/:idtransaction
+ * @route POST /api/v1/payments/:provider/transaction/:idtransaction
  * @desc crea una transacción de pago.
  * @access Publico
  */
 
-PaymentRouter.post("/:provaider/transaction/:idtransaction", 
+PaymentRouter.post("/:provider/transaction/:idtransaction",authenticateToken, 
 
     body('payment_adapter').exists().withMessage('payment_adapter is required'),
     body('adapter_type').exists().withMessage('adapter_type is required'),
@@ -79,10 +89,20 @@ PaymentRouter.post("/:provaider/transaction/:idtransaction",
 
     },(req: Request, res: Response) => {
 
-        const factoryPayment = new PaymentProviderFactory();
-        const paymentController = new PaymentsController(req.params.provaider,factoryPayment);
-
-        return paymentController.createTransaction(req, res);
+        try{
+           
+            const factoryPayment = new PaymentProviderFactory();
+            const paymentController = new PaymentsController(req.params.provider,factoryPayment);
+            return paymentController.createTransaction(req, res);
+        }
+        catch(error){
+            return res.status(500).json({ 
+                executed: 'routes/payments.ts',
+                message: 'error server while creating transaction',
+                errors: error
+            });
+        }
+        
     }
 );
 

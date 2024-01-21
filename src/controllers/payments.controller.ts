@@ -4,28 +4,28 @@ import { PaymentAdapterInterface } from './../interfaces/payment.adapter.interfa
 import { MercadoPagoMethodsAvailable } from './../types/mp.payment.methods';
 
 export class PaymentsController {
-    provaider: string;
+    provider: string;
     private providers:string[]
 
-    constructor(provaider:string, private paymentFactory:PaymentProviderFactory) {
+    constructor(provider:string, private paymentFactory:PaymentProviderFactory) {
         
-        this.provaider = provaider;
+        this.provider = provider;
         this.providers = ['mercadopago','paypal','payu'] //provider accpeted
     }
 
-    // GET /api/v1/payments/:provaider
+    // GET /api/v1/payments/:provider
     async getProvider(req: Request, res: Response) {
 
         try{
 
-            if(!this.providers.includes(this.provaider)){
+            if(!this.providers.includes(this.provider)){
                 return res.status(404).json({
                     message: 'provider not found'
                 });
             }    
 
-            const providerPayment:PaymentAdapterInterface = this.paymentFactory.getProvider(this.provaider);
-            const data = await providerPayment.getDataProvider(this.provaider, [req.body]);
+            const providerPayment:PaymentAdapterInterface = this.paymentFactory.getProvider(this.provider);
+            const data = await providerPayment.getDataProvider(this.provider, [req.body]);
             return res.status(200).json({
                 data
             });
@@ -44,13 +44,13 @@ export class PaymentsController {
     }
 
 
-    // POST /api/v1/payments/:provaider/transaction/:idtransaction
+    // POST /api/v1/payments/:provider/transaction/:idtransaction
 
     async createTransaction(req: Request, res: Response) {
 
         try{
 
-            if(!this.providers.includes(this.provaider)){
+            if(!this.providers.includes(this.provider)){
                 return res.status(404).json({
                     message: 'provider not found'
                 });
@@ -58,8 +58,7 @@ export class PaymentsController {
 
             
 
-            const providerPayment:PaymentAdapterInterface = this.paymentFactory.getProvider(this.provaider);
-            //console.log(req.params)
+            const providerPayment:PaymentAdapterInterface = this.paymentFactory.getProvider(this.provider);
             const data = await providerPayment.createTransaction([req.params,req.body]);
             return res.status(200).json({
                 data
