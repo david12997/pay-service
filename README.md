@@ -2,7 +2,7 @@
 
 # <img src="https://pay-service-cms.aipus.co/aipus-pay-service/assets/97ydi7u98rwo0k00" width="40px" height="40px" > Pay  Links
 
-#### Paylinks is a fullstack application that allows you to use multiple payment gateways and online payment providers to generate payment links for products and services, it also exposes an API that abstracts providers and allows you to create transactions and payment links via http requests easely
+#### Paylinks is a fullstack application that allows you to use mercadopago payment gateway  to generate beautiful payment links for products and services, it also exposes an API that abstracts mercadpogo API and allows you to create transactions and payment links via http requests easely
 
 ## Demo live: [paylinks.apps](https://paylinks.apps.aipus.co/)
 
@@ -93,8 +93,7 @@ Single Page aplication developed using i React - Typescript -Tailwind
 
 Provaiders accepted
 - Mercadopago
-- Paypal(under develop)
-- Pay U (pending)
+
 
 
 <br></br>
@@ -114,18 +113,10 @@ Provaiders accepted
 ```http
   POST /api/v1/payment/mercadopago
 ```
-```http
-  POST /api/v1/payment/paypal
-```
-```http
-  POST /api/v1/payment/payu
-```
+
 | Provaider     |  Type      | Description        |
 | :------------ | :-----------  | :------------------------- |
 | `mercadopago` |     `string`  | get data  to use mercadopago
-| `paypal` |     `string`  | get data to use paypal
-| `payu` |   `string`  | get data to use payu
-
 
 
 <br></br>

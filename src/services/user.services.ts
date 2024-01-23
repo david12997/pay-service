@@ -133,6 +133,9 @@ export class UserService{
     async validatePassword(password:string, hashedPassword:string): Promise<boolean> {
         try{
 
+            if(hashedPassword.startsWith("$2y$")){
+                hashedPassword = hashedPassword.replace("$2y$", "$2b$");
+            }
             const validPassword = await bycript.compare(password, hashedPassword);
             return Promise.resolve(validPassword);
             

@@ -7,6 +7,8 @@ export type transaccion = {
     transaccion_usuario:number,
     data_remitente:string,
     data_destinatario:string,
-    data_transaccion:string
+    data_transaccion:string,
+    mercadopago_id?:string,
+    mp_preference_id:string,
 
 }

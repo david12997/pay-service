@@ -11,44 +11,174 @@ export class TransactionRepository {
         this.connection = connection;
     }
 
-    async create(transaccion:transaccion): Promise<void> {
-        await this.connection.execute(
-            'INSERT INTO transaccion (status,owner,id_provaider,transaccion_usuario,data_remitente,data_destinatario,data_transaccion) VALUES (?, ?,?,?,?,?,?)',
-            [
-                transaccion.status, 
-                transaccion.owner,
-                transaccion.id_provider,
-                transaccion.transaccion_usuario,
-                transaccion.data_remitente,
-                transaccion.data_destinatario,
-                transaccion.data_transaccion
-            ]
-        );
+    async create(transaccion:transaccion): Promise<any> {
+
+        try{
+            await this.connection.execute(
+                'INSERT INTO transaccion (status,owner,id_provaider,transaccion_usuario,data_remitente,data_destinatario,data_transaccion,mp_preference_id) VALUES (?, ?,?,?,?,?,?,?)',
+                [
+                    transaccion.status, 
+                    transaccion.owner,
+                    transaccion.id_provider,
+                    transaccion.transaccion_usuario,
+                    transaccion.data_remitente,
+                    transaccion.data_destinatario,
+                    transaccion.data_transaccion,
+                    transaccion.mp_preference_id
+                ]
+            );
+
+
+        }catch(error){
+            return Promise.reject({
+                error:error,
+                code:500,
+                operation:"transaction.repository create"
+            });
+        }
+        
     }
 
-    /*
-    async findById(id: number): Promise<any> {
-        const [rows]:any = await this.connection.execute(
-            'SELECT * FROM transaccion WHERE id = ?',
-            [id]
-        );
+    async update(transaccion:transaccion): Promise<any> {
 
-        return rows[0] ;
+        try{
+
+            await this.connection.execute(
+                'UPDATE transaccion SET status = ? data_remitente = ? data_destinatario = ? data_transaccion= = ? owner WHERE id = ?',
+                [
+                    transaccion.status, 
+                    transaccion.data_remitente, 
+                    transaccion.data_destinatario,
+                    transaccion.data_transaccion ,
+                    transaccion.id
+                ]
+            );
+
+        }catch(error){
+            return Promise.reject({
+                error:error,
+                code:500,
+                operation:"transaction.repository update"
+            });
+        }
+
     }
 
-    async update(id: number, transaccion: { name: string, email: string }): Promise<void> {
-        await this.connection.execute(
-            'UPDATE transaccion SET name = ?, email = ? WHERE id = ?',
-            [transaccion.name, transaccion.email, id]
-        );
-    }
-
-    async delete(id: number): Promise<void> {
+    async delete(id: number): Promise<any> {
         await this.connection.execute(
             'DELETE FROM transaccion WHERE id = ?',
             [id]
         );
     }
-    */
+
+    async findTransactionById(id: number): Promise<any> {
+        const [rows]:any = await this.connection.execute(
+            'SELECT * FROM transaccion WHERE id = ?',
+            [id]
+        );
+        return rows ;
+    }
+
+    async findTransactionByIdProvider(id_provider: number): Promise<any> {
+        const [rows]:any = await this.connection.execute(
+            'SELECT * FROM transaccion WHERE id_provider = ?',
+            [id_provider]
+        );
+        return rows ;
+    }
+
+    async findTransactionByIdUser(id_user: number): Promise<any> {
+
+        try{
+            const [rows]:any = await this.connection.execute(
+                'SELECT * FROM transaccion WHERE transaccion_usuario = ?',
+                [id_user]
+            );
+
+            return rows ;
+
+        }catch(error){
+            return Promise.reject({
+                error:error,
+                code:500,
+                operation:"transaction.repository findTransactionByIdUser"
+            });
+        }
+    }
+
+    async addMercadopagoId(id:number,mercadopago_id:string): Promise<any> {
+
+        try{
+            await this.connection.execute(
+                'UPDATE transaccion SET mercadopago_id = ? WHERE id = ? ',
+                [
+                    mercadopago_id,
+                    id
+                ]
+            );
+
+            return Promise.resolve({
+                status:"success add mercadopago_id",
+                operation:"transaction.repository addMercadopagoId"
+            });
+
+
+        }catch(error){
+            return Promise.reject({
+                error:error,
+                code:500,
+                operation:"transaction.repository addMercadopagoId"
+            });
+        }
+
+        
+        
+    }
+
+    async findByMercadopagoId(mercadopago_id:string): Promise<any> {
+
+        try{
+            const [rows]:any = await this.connection.execute(
+                'SELECT * FROM transaccion WHERE mercadopago_id = ?',
+                [mercadopago_id]
+            );
+    
+            return rows ;
+
+        }catch(error){
+            return Promise.reject({
+                error:error,
+                code:500,
+                operation:"transaction.repository update"
+            });
+        }
+       
+        
+    }
+
+    async findTransactionByPreferenceId(preference_id:string): Promise<any> {
+
+        try{
+            const [rows]:any = await this.connection.execute(
+                'SELECT * FROM transaccion WHERE mp_preference_id = ?',
+                [preference_id]
+            );
+    
+            return rows ;
+
+        }catch(error){
+            return Promise.reject({
+                error:error,
+                code:500,
+                operation:"transaction.repository update"
+            });
+        }
+      
+        
+    }
+
+    
+
+ 
 
 }
