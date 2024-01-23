@@ -1,7 +1,7 @@
 CREATE DATABASE IF NOT EXISTS your_database_name;
 USE your_database_name;
 
-CREATE TABLE `user` (
+CREATE TABLE `usuario` (
   `id` INT(255) NOT NULL AUTO_INCREMENT,
   `status` VARCHAR(50) NOT NULL,
   `owner` INT(255) NOT NULL,
@@ -13,7 +13,7 @@ CREATE TABLE `user` (
   PRIMARY KEY (`id`)
 );
 
-CREATE TABLE `provider` (
+CREATE TABLE `proveedor` (
   `id` INT(255) NOT NULL AUTO_INCREMENT,
   `status` VARCHAR(50) NOT NULL,
   `owner` INT(255) NOT NULL,
@@ -24,7 +24,7 @@ CREATE TABLE `provider` (
   PRIMARY KEY (`id`)
 );
 
-CREATE TABLE `service` (
+CREATE TABLE `servicios` (
   `id` INT(255) NOT NULL AUTO_INCREMENT,
   `status` VARCHAR(50) NOT NULL,
   `owner` INT(255) NOT NULL,
@@ -36,7 +36,7 @@ CREATE TABLE `service` (
   FOREIGN KEY (`service_provider`) REFERENCES `provider`(`id`)
 );
 
-CREATE TABLE `transaction` (
+CREATE TABLE `transaccion` (
   `id` INT(255) NOT NULL AUTO_INCREMENT,
   `status` VARCHAR(50) NOT NULL,
   `owner` INT(255) NOT NULL,
