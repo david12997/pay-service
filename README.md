@@ -1,10 +1,15 @@
 
-
+### <img src="https://static.vecteezy.com/system/resources/thumbnails/012/042/292/small/warning-sign-icon-transparent-background-free-png.png" width="30px"> This project is in development
 # <img src="https://pay-service-cms.aipus.co/aipus-pay-service/assets/97ydi7u98rwo0k00" width="40px" height="40px" > Pay  Links
 
-#### Paylinks is a fullstack application that allows you to use mercadopago payment gateway  to generate beautiful payment links for products and services, it also exposes an API that abstracts mercadpogo API and allows you to create transactions and payment links via http requests easely
+## Figma fast prototype
+https://github.com/david12997/pay-service/assets/51899338/22fad4c3-1eee-43a9-b097-9642b3e4a3e6
 
-## Demo live: [paylinks.apps](https://paylinks.apps.aipus.co/)
+#  Live project here -> [paylinks.apps](https://paylinks.apps.aipus.co/)
+
+### Paylinks is a fullstack application that allows you to use mercadopago payment gateway  to generate beautiful payment links for products and services, it also exposes an API that abstracts mercadpogo API and allows you to create transactions and payment links via http requests easely
+
+
 
 ## Table of Contents
 1. [How to use](#how-to-use)
@@ -21,7 +26,7 @@
  In order to use the the project you going to need a **production access token** from mercadopago, create a new mercadopago app to obtain the credencials [Create an app to generate your credenciales](https://www.mercadopago.com.co/developers/es)
   <img src="https://pay-service-cms.aipus.co/aipus-pay-service/assets/i7qyqr92928ko0ww" width="100%" >
 
- Example access token 
+ Example mercadopago access token 
 ```http
  APP_USR-423452003488-110815-a8d5233da5263ccaec4dffd9352274
 ```
@@ -58,6 +63,8 @@
 
 5. Go to [localhost:3001](http://localhot:3001) and enjoy it
 
+6. If you already have a database, just create the database describe in **create.database.sql***
+
 
 ## UI Design
 To design and prototype the application I use figma.
@@ -71,9 +78,6 @@ To design and prototype the application I use figma.
 
 #### Use Case Diagram
 [![N|Solid](https://pay-service-cms.aipus.co/aipus-pay-service/assets/otl43bvpweockw4w)](https://pay-service-cms.aipus.co/aipus-pay-service/assets/otl43bvpweockw4w)
-
-#### Entity Relationship Diagram
-[![N|Solid](https://pay-service-cms.aipus.co/aipus-pay-service/assets/hhjsx4aa2e0cckow)](https://pay-service-cms.aipus.co/aipus-pay-service/assets/hhjsx4aa2e0cckow)
 
 
 
@@ -139,7 +143,11 @@ Single Page aplication developed using i React - Typescript -Tailwind
 <br></br>
 
 #### Login to the account
+
+##### Authentication 
 Authentication is based on jwt,when you make a success request to this endpoint the api return a **token**  with the public user data
+
+To consume the api endpoints you are going to need the **token** 
 
 ```http
   POST /api/v1/user/sign-in
@@ -210,7 +218,10 @@ the **access token** in the body request is the mercadopogo token generated when
 
 
 ## Database
-Content for the Database section goes here.
+#### Entity Relationship Diagram
+[![N|Solid](https://pay-service-cms.aipus.co/aipus-pay-service/assets/hhjsx4aa2e0cckow)](https://pay-service-cms.aipus.co/aipus-pay-service/assets/hhjsx4aa2e0cckow)
+
+
 
 
 
