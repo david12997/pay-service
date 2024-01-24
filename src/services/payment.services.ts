@@ -108,7 +108,7 @@ export class PaymentService {
             await this.database.connect();
             const paymentRepository = new PaymentRepository(this.database.getConnection());
 
-            const newPayment = await paymentRepository.findPaymentById(id);
+            const newPayment = await paymentRepository.findById(id);
             return Promise.resolve({
                 payment: newPayment,
                 status: "success find payment",
