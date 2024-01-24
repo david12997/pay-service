@@ -5,18 +5,11 @@ import { MercadoPagoMethodsAvailable } from './../types/mp.payment.methods';
 import { MercadoPagoServiceInterface } from './../interfaces/mp.services.interface';
 import { GetData } from './get.data';
 
-import { DatabaseAdapter } from './../infrastructure/databases/mysql2.adapter';
-import { TransactionRepository } from './../repositories/transaction.repository';
+import { TransactionServices } from './transaction.services';
 
 
 export class CheckoutProMercadoPago implements MercadoPagoServiceInterface{
 
-    private database: DatabaseAdapter;
-
-    constructor() {
-        this.database = new DatabaseAdapter();
-       
-    }
 
     async getDataProvaider(provider: string, body:[MercadoPagoMethodsAvailable]): Promise<any> {
 
@@ -41,9 +34,6 @@ export class CheckoutProMercadoPago implements MercadoPagoServiceInterface{
     }
     
     async createTransaction(params:{provaider:string,idtransaction:string},body:CheckoutProRequest): Promise<any> {
-
-        //console.log(body);  
-        //console.log(params);
 
         // Lógica para crar una preferencia de pago usando checkout pro de MercadoPago
         try{
@@ -97,18 +87,18 @@ export class CheckoutProMercadoPago implements MercadoPagoServiceInterface{
                 transaction:createPayment
             }
             
-            await this.database.connect();
-            const transactionRepo = new TransactionRepository(this.database.getConnection());
-            const newTransaccion = await transactionRepo.create({
+            const myTransactionService = new TransactionServices();
+            const newTransaccion = await myTransactionService.create({
                 status:'draft',
                 owner:body.owner.id,
                 id_provider:1,
                 transaccion_usuario:body.owner.id,
                 data_remitente:JSON.stringify(body.buyer),
                 data_destinatario:JSON.stringify(body.seller),
-                data_transaccion:JSON.stringify(dataTransaction)
+                data_transaccion:JSON.stringify(dataTransaction),
+                mp_preference_id:createPayment.id as string
             
-            });
+            })
      
             
             return{

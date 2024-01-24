@@ -9,7 +9,7 @@ const PaymentRouter = Router();
 /**
  * @route POST /api/v1/payments/:provider
  * @desc obtiene un proveedor de pago.
- * @access Publico
+ * @access Privado
  */
 
 
@@ -35,8 +35,7 @@ PaymentRouter.post("/:provider",authenticateToken,
     },(req: Request, res: Response) => {
 
     try{
-        const factoryPayment = new PaymentProviderFactory();
-        const paymentController = new PaymentsController(req.params.provider,factoryPayment);
+        const paymentController = new PaymentsController(req.params.provider);
         return paymentController.getProvider(req, res);
     }        
     catch(error){
@@ -56,7 +55,7 @@ PaymentRouter.post("/:provider",authenticateToken,
 /**
  * @route POST /api/v1/payments/:provider/transaction/:idtransaction
  * @desc crea una transacción de pago.
- * @access Publico
+ * @access Privado
  */
 
 PaymentRouter.post("/:provider/transaction/:idtransaction",authenticateToken, 
@@ -90,9 +89,8 @@ PaymentRouter.post("/:provider/transaction/:idtransaction",authenticateToken,
     },(req: Request, res: Response) => {
 
         try{
-           
-            const factoryPayment = new PaymentProviderFactory();
-            const paymentController = new PaymentsController(req.params.provider,factoryPayment);
+
+            const paymentController = new PaymentsController(req.params.provider);
             return paymentController.createTransaction(req, res);
         }
         catch(error){
@@ -105,6 +103,51 @@ PaymentRouter.post("/:provider/transaction/:idtransaction",authenticateToken,
         
     }
 );
+
+/**
+ * @route POST /api/v1/payments/transaction/:provider/id_transaction
+ * @desc crea una transacción de pago.
+ * @access Privado
+ */
+
+PaymentRouter.post("/transaction/:provider/id_transaction",
+    body('merchant_order_id').exists().withMessage('merchant_order_id is required'),
+    body('merchant_order_id').isNumeric().withMessage('merchant_order_id must be a number'),
+    body('mercadopago_id').exists().withMessage('mercadopago_id is required'),
+    body('mercadopago_id').isString().withMessage('mercadopago_id must be a string'),
+    body('preference_id').exists().withMessage('preference_id is required'),
+    body('preference_id').isString().withMessage('preference_id must be a string'),
+
+    (req: Request, res: Response, next:NextFunction) => {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            return res.status(422).json({ 
+                message: 'error validation',
+                errors: errors.array() 
+            });
+        }
+        next();
+
+    },(req: Request, res: Response) => {
+
+        try{
+
+            const paymentController = new PaymentsController(req.params.provider);
+            return paymentController.UpdateProviderIdPayment(req, res);
+
+
+        }catch(error){
+
+            return res.status(500).json({
+                executed: 'routes/payments.ts',
+                message: 'error server while updating provider id payment',
+                errors: error
+            });
+
+        }
+    }
+
+)
 
 
 module.exports = PaymentRouter;

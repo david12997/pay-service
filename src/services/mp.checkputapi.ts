@@ -97,7 +97,8 @@ export class CheckoutAPIMercadoPago implements MercadoPagoServiceInterface{
                 transaccion_usuario:body.owner.id,
                 data_remitente:JSON.stringify(body.buyer),
                 data_destinatario:JSON.stringify(body.seller),
-                data_transaccion:JSON.stringify(dataTransaction)
+                data_transaccion:JSON.stringify(dataTransaction),
+                mp_preference_id:createPayment.id as string
             
             });
      
