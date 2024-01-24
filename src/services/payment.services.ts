@@ -18,6 +18,7 @@ export class PaymentService {
             data_paiment: "",
             provider: "",
             user_provider_id: 0,
+            payment_id:0
         }
     }
 

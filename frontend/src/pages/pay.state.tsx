@@ -2,6 +2,7 @@ import { useEffect } from "react";
 
 import StructureStatePayment from "../components/structures/state.payment";
 import parseQueryStringQueryParams from "../helpers/parsequery.state.py";
+import { SendData } from "../helpers/send.data";
 
 
 export type PayStatePageProps = {
@@ -23,10 +24,31 @@ export type CheckoutProResponse = {
 };
 
 const PayStatePage = (props:PayStatePageProps):React.JSX.Element => {
+    
+    
+
+    const updateTransaction = async (id_payment:string,preference_id:string,merchant_order_id:number) => {
+        const bodyupdateTransaction = {
+            "mercadopago_id":id_payment,
+            "preference_id":preference_id,
+            "merchant_order_id":merchant_order_id
+          }
+    
+        const response = await SendData([
+
+            process.env.API_URL+'/payments/transaction/mercadopago/id_transaction'
+        
+        ],"POST",JSON.stringify(bodyupdateTransaction))
+        
+        console.log(response);
+    }
 
     useEffect(() => {
-       const cleanSearchString = window.location.search.split("?")[1];
-       console.log(parseQueryStringQueryParams(cleanSearchString));
+        const cleanSearchString = window.location.search.split("?")[1];
+        const dataParams = parseQueryStringQueryParams(cleanSearchString);
+
+        updateTransaction(dataParams.payment_id,dataParams.preference_id,dataParams.merchant_order_id);
+
     },[]);
 
 

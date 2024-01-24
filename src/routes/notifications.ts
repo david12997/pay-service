@@ -26,7 +26,8 @@ Notifications.post("/mercadopago/", async(req: Request, res: Response) => {
             owner: 1,
             data_paiment: JSON.stringify(req.body),
             provider: 'mercadopago',
-            user_provider_id: req.body.user_id
+            user_provider_id: req.body.user_id,
+            payment_id: req.body.data.id
         }
         
         const dataNotification = new PaymentService();

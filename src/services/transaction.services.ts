@@ -170,15 +170,16 @@ export class TransactionServices{
             }
     }
 
-    async addMercadopagoId(id_transaction:number,mercadopago_id:string): Promise<any> {
+    async addMercadopagoId(id_transaction:number,mercadopago_id:string,merchant_id:number): Promise<any> {
             
             try{
                 
                 await this.database.connect();
                 const transactionRepository = new TransactionRepository(this.database.getConnection());
                 const newTransaction = await transactionRepository.addMercadopagoId(id_transaction,mercadopago_id)
+                const newTransaction2 = await transactionRepository.addMerchantOrderId(id_transaction,merchant_id)
                 return Promise.resolve({
-                    transaction:newTransaction,
+                    transaction:[newTransaction,newTransaction2],
                     status:"success add mercadopago_id",
                     operation:"transaction.service add"
                 });

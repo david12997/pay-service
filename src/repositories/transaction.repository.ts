@@ -135,6 +135,31 @@ export class TransactionRepository {
         
     }
 
+    async addMerchantOrderId(id:number,merchant_order_id:number): Promise<any> {
+            
+        try{
+            await this.connection.execute(
+                'UPDATE transaccion SET merchant_order_id = ? WHERE id = ? ',
+                [
+                    merchant_order_id,
+                    id
+                ]
+            );
+
+            return Promise.resolve({
+                status:"success add merchant_order_id",
+                operation:"transaction.repository addMerchantOrderId"
+            });
+
+        }catch(error){
+            return Promise.reject({
+                error:error,
+                code:500,
+                operation:"transaction.repository addMerchantOrderId"
+            });
+        }
+    }
+
     async findByMercadopagoId(mercadopago_id:string): Promise<any> {
 
         try{

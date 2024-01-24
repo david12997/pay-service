@@ -103,13 +103,13 @@ export class PaymentsController {
                 });
             }
 
-            if(transaction.transaction[0].mercadopago_id !== null){
+            if(transaction.transaction[0].mercadopago_id !== null || transaction.transaction[0].merchant_order_id !== null){
                 return res.status(404).json({
                     message: 'mercadopago_id already exists'
                 });
             }
 
-            const data = await addIdProvider.addMercadopagoId(transaction.transaction[0].id,req.body.mercadopago_id);
+            const data = await addIdProvider.addMercadopagoId(transaction.transaction[0].id,req.body.mercadopago_id,req.body.merchant_order_id);
             return res.status(200).json({
                data
                 

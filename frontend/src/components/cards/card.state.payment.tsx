@@ -1,5 +1,6 @@
-import { useEffect } from "react";
+
 import { IconStatePayment } from "../icons/state.payment";
+
 
 export type CardStatePaymentProps = {
 
@@ -14,11 +15,8 @@ export type CardStatePaymentProps = {
 
 const CardStatePayment = (props:CardStatePaymentProps):React.JSX.Element => {
 
-    useEffect(() => {
+   
 
-        
-
-    }, []);
     
     return<>
         <div className="min-w-[290px] w-[100%] max-w-[650px] min-h-[360px] h-[540px] md:h-[400px] bg-white rounded-[9px] flex items-center justify-center">

@@ -110,8 +110,9 @@ PaymentRouter.post("/:provider/transaction/:idtransaction",authenticateToken,
  * @access Privado
  */
 
-PaymentRouter.post("/transaction/:provider/id_transaction",authenticateToken,
-
+PaymentRouter.post("/transaction/:provider/id_transaction",
+    body('merchant_order_id').exists().withMessage('merchant_order_id is required'),
+    body('merchant_order_id').isNumeric().withMessage('merchant_order_id must be a number'),
     body('mercadopago_id').exists().withMessage('mercadopago_id is required'),
     body('mercadopago_id').isString().withMessage('mercadopago_id must be a string'),
     body('preference_id').exists().withMessage('preference_id is required'),

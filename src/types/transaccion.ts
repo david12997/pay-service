@@ -10,5 +10,6 @@ export type transaccion = {
     data_transaccion:string,
     mercadopago_id?:string,
     mp_preference_id:string,
+    merchant_order_id?:number,
 
 }
