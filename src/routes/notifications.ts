@@ -32,7 +32,7 @@ Notifications.post("/mercadopago/", async(req: Request, res: Response) => {
         const dataNotification = new PaymentService();
         await dataNotification.create(bodyPayment);
     
-       
+       console.log(req.body);
     
         return Promise.resolve(res.status(200).json({
             executed: 'routes/notifications.ts',

@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { IconStatePayment } from "../icons/state.payment";
 
 export type CardStatePaymentProps = {
@@ -13,7 +14,12 @@ export type CardStatePaymentProps = {
 
 const CardStatePayment = (props:CardStatePaymentProps):React.JSX.Element => {
 
+    useEffect(() => {
 
+        
+
+    }, []);
+    
     return<>
         <div className="min-w-[290px] w-[100%] max-w-[650px] min-h-[360px] h-[540px] md:h-[400px] bg-white rounded-[9px] flex items-center justify-center">
             <div className="container w-[96%] h-[96%] flex flex-col items-start">
@@ -29,7 +35,7 @@ const CardStatePayment = (props:CardStatePaymentProps):React.JSX.Element => {
                             Pago Exitoso
                         </h1>
                         <p className="preference-id text-[15px] md:text-[18px] font-semibold text-[#6e6e6e] w-[90%] md:w-[80%]">
-                            <span className="text-black">Id orden:</span> 1439352274-4bc8327a-be27-471d-8c5b-98ce0cfd4f7f
+                            <span className="text-black">Id orden:</span> {props.preferenceId}
                         </p>
                     </div>
 
