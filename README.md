@@ -143,15 +143,15 @@ Single Page aplication developed using i React - Typescript -Tailwind
 <br></br>
 
 #### Login to the account
+```http
+  POST /api/v1/user/sign-in
+```
 
 ##### Authentication 
 Authentication is based on jwt,when you make a success request to this endpoint the api return a **token**  with the public user data
 
 To consume the api endpoints you are going to need the **token** 
 
-```http
-  POST /api/v1/user/sign-in
-```
 
 | Body parameters | Type     | Description                |
 | :-------- | :------- | :------------------------- |
@@ -175,12 +175,10 @@ To consume the api endpoints you are going to need the **token**
 <br></br>
 
 #### Get provaider services information
-
-To have access to this endpoint you need a **token** to authenticate the request by **Bearer token header**
-
 ```http
   POST /api/v1/payment/:provaider
 ```
+To have access to this endpoint you need a **token** to authenticate the request by **Bearer token header**
 
 | URL Parameter | Type     | Description                |
 | :-------- | :------- | :------------------------- |
