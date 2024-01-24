@@ -6,6 +6,6 @@ export type payment = {
     data_paiment:string,
     provider:string,
     user_provider_id:number,
-    payment_id:number
+    payment_id:string
 
 }
