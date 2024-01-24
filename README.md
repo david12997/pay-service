@@ -17,6 +17,16 @@
 
 ## How to use 
 
+
+ In order to use the the project you going to need a **production access token** from mercadopago, create a new mercadopago app to obtain the credencials [Create an app to generate your credenciales](https://www.mercadopago.com.co/developers/es)
+  <img src="https://pay-service-cms.aipus.co/aipus-pay-service/assets/i7qyqr92928ko0ww" width="100%" >
+
+ Example access token 
+```http
+ APP_USR-423452003488-110815-a8d5233da5263ccaec4dffd9352274
+```
+<br></br>
+
  <img  src="https://cdn4.iconfinder.com/data/icons/logos-and-brands/512/97_Docker_logo_logos-512.png" width="30px" height="30px" >To deploy this project you will need to use docker and docker compose
 
 1. Clone the project
@@ -91,32 +101,97 @@ Single Page aplication developed using i React - Typescript -Tailwind
 #### API Reference  [paylinks.apps.api.docs](https://paylinks.apps.aipus.co/api-docs/)
 
 
-Provaiders accepted
-- Mercadopago
+**Provider accepted**
+| Provider | Type     | Description                |
+| :-------- | :------- | :------------------------- |
+| `mercadopago` | `string` | the key **mercadopago** references to provider and payment_adapter
+
+
+**adapter_type accepted**
+| Provider | Type     | Description                |
+| :-------- | :------- | :------------------------- |
+| `checkout pro` | `string` | the key **checkpout pro** allow you to select this solution to use
+| `checkout api` | `string` | the key **checkpout api** allow you to select this solution to use
+
+
 
 
 
 <br></br>
 
-##### Get provaider services information
+##### Create an account
+
+```http
+  POST /api/v1/user/sign-up
+```
+
+| Body parameter | Type     | Description                |
+| :-------- | :------- | :------------------------- |
+| `status` | `string` |  this property is a string you can choose to handle whatever you need required
+| `owner` | `number` |  this property refers to  a superadmin created at first deployment required
+| `name` | `string` |  string required
+| `email` | `string` |  id payment service provaideremal required
+| `phone` | `number` |  number required
+| `password` | `string` |  string rquired
+| `nit` | `number` |  legal id to the user, this is not required to create an account
+
+<br></br>
+
+#### Login to the account
+Authentication is based on jwt,when you make a success request to this endpoint the api return a **token**  with the public user data
+
+```http
+  POST /api/v1/user/sign-in
+```
+
+| Body parameters | Type     | Description                |
+| :-------- | :------- | :------------------------- |
+| `email` | `string` |required
+| `password` | `string` | required
+
+##### JSON response 
+```json
+{
+  "token": "token",
+  "user": {
+    "username": "David",
+    "email": "developers@payservice.co",
+    "status": "published",
+    "phone": 2147483647,
+    "nit": 12334729
+  }
+}
+```
+
+<br></br>
+
+#### Get provaider services information
+
+To have access to this endpoint you need a **token** to authenticate the request by **Bearer token header**
 
 ```http
   POST /api/v1/payment/:provaider
 ```
 
-| Parameter | Type     | Description                |
+| URL Parameter | Type     | Description                |
 | :-------- | :------- | :------------------------- |
-| `provaider` | `string` | **Required**. id payment service provaider
+| `provaider` | `string` | **Required**. provider name 
 
-##### Example
 
-```http
-  POST /api/v1/payment/mercadopago
+**Body request**
+
+the **access token** in the body request is the mercadopogo token generated when you create a new integration in mercadopago developers platform
+```json
+{
+  "payment_adapter": "mercadopago",
+  "adapter_type": "checkout pro",
+  "access_token":"APP_USR-423452003488-110815-a8d5233da5263ccaec4dffd9352274" 
+}
+
+
 ```
 
-| Provaider     |  Type      | Description        |
-| :------------ | :-----------  | :------------------------- |
-| `mercadopago` |     `string`  | get data  to use mercadopago
+
 
 
 <br></br>
