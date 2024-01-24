@@ -21,7 +21,7 @@
  In order to use the the project you going to need a **production access token** from mercadopago, create a new mercadopago app to obtain the credencials [Create an app to generate your credenciales](https://www.mercadopago.com.co/developers/es)
   <img src="https://pay-service-cms.aipus.co/aipus-pay-service/assets/i7qyqr92928ko0ww" width="100%" >
 
- Example access token 
+ Example mercadopago access token 
 ```http
  APP_USR-423452003488-110815-a8d5233da5263ccaec4dffd9352274
 ```
@@ -57,6 +57,8 @@
 ```
 
 5. Go to [localhost:3001](http://localhot:3001) and enjoy it
+
+6. If you already have a database, just create the database describe in **create.database.sql***
 
 
 ## UI Design
@@ -139,7 +141,11 @@ Single Page aplication developed using i React - Typescript -Tailwind
 <br></br>
 
 #### Login to the account
+
+##### Authentication 
 Authentication is based on jwt,when you make a success request to this endpoint the api return a **token**  with the public user data
+
+To consume the api endpoints you are going to need the **token** 
 
 ```http
   POST /api/v1/user/sign-in
