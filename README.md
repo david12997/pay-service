@@ -63,8 +63,9 @@
 To design and prototype the application I use figma.
 ##### Link figma design: [figma.link](https://www.figma.com/file/SWetoonCcVGLVFy6Bqtmch/Untitled?type=design&node-id=0%3A1&mode=design&t=R0f93AHU0nd1i8W5-1)
 
-<img width="100%" src="https://pay-service-cms.aipus.co/aipus-pay-service/assets/elwziqo8bg0sw44w">
 <img width="100%" src="https://pay-service-cms.aipus.co/aipus-pay-service/assets/imwv47bo0tcggwo0">
+<img width="100%" src="https://pay-service-cms.aipus.co/aipus-pay-service/assets/elwziqo8bg0sw44w">
+
 
 ## Architecture
 
