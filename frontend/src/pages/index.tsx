@@ -11,7 +11,9 @@ const IndexPage = ():React.JSX.Element => {
     const selectorUser = useAppSelector(state => state.user);
 
     useEffect(() => {
-        if(selectorUser.token  !== null || selectorUser.token !== undefined) router('/home');
+
+        console.log(selectorUser.token);
+       selectorUser.token  !== null &&  router('/home');
 
     }, []);
 

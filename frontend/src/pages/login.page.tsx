@@ -16,9 +16,9 @@ const LoginPage = ():React.JSX.Element => {
     const router = useNavigate();
 
     useEffect(() => {
-        if(selectorUser.token !== null && selectorUser.token !== undefined){
-            router('/home');
-        }
+        
+        if(selectorUser.token !== null )router('/home');
+        
     }, []);
     
 
