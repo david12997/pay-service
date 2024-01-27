@@ -69,8 +69,6 @@ export class userController {
     // POST /api/v1/user/sign-in
     async signIn(req: {email:string,password:string}, res: Response) {
 
-        console.log(req);
-
         try{
             this.user.email=req.email;
             this.user.password=req.password;
