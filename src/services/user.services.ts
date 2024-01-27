@@ -199,6 +199,7 @@ export class UserService{
 
     //generateToken
     async generateToken(user:user): Promise<string> {
+        console.log(user);
         try{
 
             const accessToken = jwt.sign({ user: user.name }, process.env.ACCESS_TOKEN_SECRET!);
