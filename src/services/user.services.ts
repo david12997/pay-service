@@ -192,7 +192,7 @@ export class UserService{
             return Promise.reject({
                 error,
                 code:500,
-                message:"user.service.ts error in class user"
+                message:"user.service.ts error in class user validatePassword"
             });
         }
     }
@@ -208,7 +208,7 @@ export class UserService{
             return Promise.reject({
                 error,
                 code:500,
-                message:"user.service.ts error in class user"
+                message:"user.service.ts error in class user generateToken"
             });
         }
     }
