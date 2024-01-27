@@ -12,6 +12,7 @@ export class UserRepository {
     }
 
     async create(user:user): Promise<void> {
+        console.log(user.phone);
         await this.connection.execute(
             'INSERT INTO usuario (status,owner,name,email,phone,password,nit) VALUES (?,?,?,?,?,?,?)',
             [

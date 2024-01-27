@@ -1,11 +1,108 @@
-import React from 'react';
+import { useGoogleLogin } from '@react-oauth/google';
+import React, { useEffect, useRef } from 'react';
+import { GetData } from '../helpers/get.data';
+import { SendData } from '../helpers/send.data';
+import { useAppDispatch, useAppSelector } from '../store';
+import { LoginWithGoogle as actionLogin, setLoading, setToken } from '../store/user';
+import { useNavigate } from 'react-router-dom';
+import { IconArrowPrevious } from '../components/icons/coommon';
+
+
 
 const LoginPage = ():React.JSX.Element => {
 
+    const dispatch = useAppDispatch();
+    const selectorUser = useAppSelector((state) => state.user);
+    const router = useNavigate();
+
+    useEffect(() => {
+        if(selectorUser.token !== null && selectorUser.token !== undefined){
+            router('/home');
+        }
+    }, []);
+    
+
+    const emailRef = useRef<HTMLInputElement>(null);
+    const passwordRef = useRef<HTMLInputElement>(null);
+
+    const LoginWithGoogle = useGoogleLogin({
+        onSuccess: async(res:any) => {
+            console.log(res);
+            const userInfo = await GetData(['https://www.googleapis.com/oauth2/v3/userinfo'],res.access_token)
+            //console.log(userInfo);
+            dispatch(actionLogin({
+                name: userInfo[0].name,
+                email: userInfo[0].email,
+                phone: userInfo[0].sub,
+               loading: true,
+               token:null,
+
+            }))
+
+            const CreateAccount = await SendData([process.env.API_URL+'/user/google/sign-up/'+process.env.GOOGLE_XCODE],'POST',JSON.stringify({
+                status: 'published',
+                owner:1,
+                name: userInfo[0].name,
+                email: userInfo[0].email,
+                password: userInfo[0].sub,
+                phone:userInfo[0].sub,
+                nit: userInfo[0].sub,
+
+            }))
+
+            //console.log(CreateAccount);
+
+            dispatch(setToken(CreateAccount[0].data.token));
+            dispatch(setLoading(false));
+            router('/home');
+
+           
+
+        },
+        onError: (res:any) => {
+            console.log(res);
+        },
+        
+    });
+
+    const Login = async(e:React.FormEvent<HTMLFormElement>) => {
+
+        e.preventDefault();
+        dispatch(setLoading(true));
+        const Login = await SendData([process.env.API_URL+'/user/sign-in'],'POST',JSON.stringify({
+            email: emailRef.current?.value,
+            password: passwordRef.current?.value,
+        }))
+
+        console.log(Login);
+        if(Login[0].user !== undefined || Login[0].user !== null || Login[0].user !== ''){
+            dispatch(actionLogin({
+                name: Login[0].user.username,
+                email: Login[0].user.email,
+                phone: Login[0].user.phone,
+                loading: false,
+                token: Login[0].token,
+            
+            }));
+
+
+            router('/home');
+
+
+        }else{
+            console.log('error');
+        }
+    }
+
+
     return<>
-        <section className='w-[100%]  bg-[#E9E9E9]'>
-            <div className="absolute container-return w-[80%] ml-[10%] top-[30px]">
-                <p>Volver</p>
+
+        {
+           !selectorUser.loading
+            ?
+            <section className='w-[100%]  bg-[#E9E9E9]'>
+            <div onClick={()=>router('/')} className="cursor-pointer absolute container-return w-[80%] ml-[10%] top-[30px] flex items-center">
+                <span ><IconArrowPrevious/></span><p className='ml-2 text-[18px] font-semibold'>Volver</p>
             </div>
 
             <div className="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
@@ -18,11 +115,12 @@ const LoginPage = ():React.JSX.Element => {
             </div>
 
             <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-                <form className="space-y-6" action="#" method="POST">
+                <form onSubmit={(e)=>Login(e)} className="space-y-6" action="#" method="POST">
                 <div>
                     <label htmlFor="email" className="block text-[16px] font-medium leading-6 text-balance">Correo electronico</label>
                     <div className="mt-2">
                     <input id="email" 
+                        ref={emailRef}
                         name="email" 
                         type="email" 
                         autoComplete="email" 
@@ -41,6 +139,7 @@ const LoginPage = ():React.JSX.Element => {
                     </div>
                     <div className="mt-2">
                     <input id="password" 
+                        ref={passwordRef}
                         name="password" 
                         type="password" 
                         autoComplete="current-password" 
@@ -55,8 +154,11 @@ const LoginPage = ():React.JSX.Element => {
                             Ingresar
                     </button>
                 </div>
+                
+                
+                </form>
                 <div className="my-5">
-                    <button className="w-full text-[18px] text-center py-3 my-3 border flex space-x-2 items-center justify-center border-slate-200 rounded-lg text-slate-700 hover:border-slate-400 hover:text-slate-900 hover:shadow transition duration-150">
+                    <button onClick={()=>LoginWithGoogle()} className="w-full text-[18px] text-center py-3 my-3 border flex space-x-2 items-center justify-center border-slate-200 rounded-lg text-slate-700 hover:border-slate-400 hover:text-slate-900 hover:shadow transition duration-150">
                         <img 
                             src="https://cdn.iconscout.com/icon/free/png-256/free-google-1772223-1507807.png" 
                             className="w-6 h-6" alt=""
@@ -64,8 +166,6 @@ const LoginPage = ():React.JSX.Element => {
                         <span>Ingresar con Google</span>
                     </button>
                 </div>
-                
-                </form>
 
                 <p className="mt-10 text-center text-[16px] text-gray-400">
                 ¿No estas registrado?
@@ -74,9 +174,21 @@ const LoginPage = ():React.JSX.Element => {
             </div>
             </div>
             
-        </section>
+            </section>
+            :
+            <section className='loading-section w-screen h-screen flex items-cenetr justify-center'>
+                <span className="bg-[#602aeb] loading loading-ball w-[60px]"></span>
+                <span className="bg-[#602aeb] loading loading-ball w-[80px]"></span>
+                <span className="bg-[#602aeb] loading loading-ball w-[100px]"></span>
+                <span className="bg-[#602aeb] loading loading-ball  w-[120px] "></span>
+
+            </section>
+        }
+
+       
     
     </>
 }
 
 export default LoginPage;
+

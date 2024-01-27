@@ -22,6 +22,7 @@ export class UserService{
             password:"",
             nit:0,
             phone:0
+            
         }
     }
 
@@ -62,6 +63,54 @@ export class UserService{
             });
         }
         
+    }
+
+    async createWithGoogle(user:user): Promise<any> {
+            
+        try{
+            
+            this.setUser=user;
+            await this.database.connect();
+            const userRepository = new UserRepository(this.database.getConnection());
+
+            const [rows]:any = await userRepository.findUserByEmail(this.getUser.email);
+            if(rows !== undefined){
+
+                const pass = await this.validatePassword(this.getUser.password, rows.password);
+
+                if(pass){
+                    const token = await this.generateToken(rows);
+                    return Promise.resolve({
+                        user:rows,
+                        token,
+                        status:"success validate user",
+                        operation:"user.service createWithGoogle"
+                    });
+                }else {
+                    throw new Error("invalid password")
+                }
+
+            }else{
+                const hashedPassword = await this.hashPassword(this.getUser.password);
+                this.getUser.password = hashedPassword;
+                
+                await userRepository.create(this.getUser);
+                const token = await this.generateToken(user);
+                return Promise.resolve({
+                    token,
+                    status:"success create user",
+                    operation:"user.service createWithGoogle"
+                });
+            }
+            
+            
+        }catch(error:any){
+            return Promise.reject({
+                error:error.message,
+                code:500,
+                message:"user.service.ts error in class user"
+            });
+        }
     }
 
     async update(): Promise<any> {

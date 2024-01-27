@@ -6,7 +6,8 @@ export default defineConfig({
   plugins: [react()],
   define:{
     'process.env': {
-      'API_URL': 'http://localhost:3001/api/v1'
+      'API_URL': 'http://localhost:3001/api/v1',
+      'GOOGLE_XCODE': '938285238',
     }
   }
 })

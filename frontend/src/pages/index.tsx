@@ -1,9 +1,22 @@
+
+import { useNavigate } from "react-router-dom";
 import Navbar from "../components/common/nav"
+import { useEffect } from "react";
+import { useAppSelector } from "../store";
+
 
 const IndexPage = ():React.JSX.Element => {
 
-    return<>
+    const router = useNavigate();
+    const selectorUser = useAppSelector(state => state.user);
 
+    useEffect(() => {
+        if(selectorUser.token  !== null || selectorUser.token !== undefined) router('/home');
+
+    }, []);
+
+    return<>
+        
         <Navbar />
         <section className="w-screen h-screen bg-[#E9E9E9] flex justify-center items-center pt-[50px]">
             <div className="card-main-index w-[90%]  h-[89%] bg-white rounded-[16px] overflow-y-scroll p-4">
@@ -32,7 +45,7 @@ const IndexPage = ():React.JSX.Element => {
                             </p>
                         </div>
                         <div className="buttons w-[100%] mt-[5%]">
-                            <button className="w-[100%] md:w-[70%] h-[50px] md:h-[60px] bg-[#4900FF] rounded-[9px] text-white p-2">
+                            <button onClick={()=>router('/registrarse')} className="w-[100%] md:w-[70%] h-[50px] md:h-[60px] bg-[#4900FF] rounded-[9px] text-white p-2">
                                 <p className="text-[18px] font-semibold">
                                     Empieza gratis
                                 </p>

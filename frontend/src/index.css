@@ -20,6 +20,11 @@ body{
     background: linear-gradient(90deg, #4301E9 0%, #4907f0b6 100%);
 }
 
+.linear-gradient-bg-navigationapp{
+  background: linear-gradient(90deg, #4301E9 0%, #7049d5 80%);
+}
+
+
 /* scroll bar styles */
 *::-webkit-scrollbar {
     width: 10px; 
@@ -34,4 +39,33 @@ body{
     background-color: #b0b0b05e;    /* color of the scroll thumb */
     border-radius: 20px;       /* roundness of the scroll thumb */
     border: 3px solid transparent;  /* creates padding around scroll thumb */
+  }
+
+
+  /* animation menu index*/
+  .menu-index-enter{
+    animation: menu-index-enter 1s ease-in-out;
+  }
+
+  @keyframes menu-index-enter {
+    0% {
+      transform: translateX(200%);
+    }
+    100% {
+      transform: translateX(0%);
+    }
+  }
+
+  /* animation menu index*/
+  .menu-index-out{
+    animation: menu-index-out 1s ease-in-out;
+  }
+
+  @keyframes menu-index-out {
+    0% {
+      transform: translateX(0%);
+    }
+    100% {
+      transform: translateX(200%);
+    }
   }
