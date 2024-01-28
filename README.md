@@ -21,17 +21,6 @@ https://github.com/david12997/pay-service/assets/51899338/22fad4c3-1eee-43a9-b09
 
 
 ## How to use 
-
-
- In order to use the the project you going to need a **production access token** from mercadopago, create a new mercadopago app to obtain the credencials [Create an app to generate your credenciales](https://www.mercadopago.com.co/developers/es)
-  <img src="https://pay-service-cms.aipus.co/aipus-pay-service/assets/i7qyqr92928ko0ww" width="100%" >
-
- Example mercadopago access token 
-```http
- APP_USR-423452003488-110815-a8d5233da5263ccaec4dffd9352274
-```
-<br></br>
-
  <img  src="https://cdn4.iconfinder.com/data/icons/logos-and-brands/512/97_Docker_logo_logos-512.png" width="30px" height="30px" >To deploy this project you will need to use docker and docker compose
 
 1. Clone the project
@@ -64,6 +53,21 @@ https://github.com/david12997/pay-service/assets/51899338/22fad4c3-1eee-43a9-b09
 5. Go to [localhost:3001](http://localhot:3001) and enjoy it
 
 6. If you already have a database, just create the database describe in **create.database.sql***
+
+### Access Token
+
+ In order to use the the project you going to need a **production access token** from mercadopago, create a new mercadopago app to obtain the credencials [Create an app to generate your credenciales](https://www.mercadopago.com.co/developers/es)
+ <br></br>
+ For security reasons the access token always is hashed by de api, you only can view de hash access token
+ <br></br>
+  <img src="https://pay-service-cms.aipus.co/aipus-pay-service/assets/i7qyqr92928ko0ww" width="100%" >
+
+ Example mercadopago access token 
+```http
+ APP_USR-423452003488-110815-a8d5233da5263ccaec4dffd9352274
+```
+<br></br>
+
 
 
 ## UI Design
