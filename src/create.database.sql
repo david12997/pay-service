@@ -7,7 +7,7 @@ CREATE TABLE `owner`(
   `name` VARCHAR(50) NOT NULL,
   `email` VARCHAR(50) NOT NULL,
   `password` VARCHAR(50) NOT NULL,
-  `phone` INT(11) NOT NULL,
+  `phone` BIGINT(11) NOT NULL,
   `nit` INT(11) NOT NULL,
   PRIMARY KEY (`id`)
 );
@@ -20,8 +20,10 @@ CREATE TABLE `usuario` (
   `name` VARCHAR(50) NOT NULL,
   `email` VARCHAR(50) NOT NULL,
   `password` VARCHAR(50) NOT NULL,
-  `phone` INT(11) NOT NULL,
+  `phone` BIGINT(11) NOT NULL,
   `nit` INT(11) NOT NULL,
+  `token` VARCHAR(255) NOT NULL,
+
   PRIMARY KEY (`id`)
 );
 

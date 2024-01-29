@@ -1,11 +1,15 @@
 import React from 'react';
+import { IconArrowPrevious } from '../components/icons/coommon';
+import { useNavigate } from 'react-router-dom';
 
 const SignUpPage = ():React.JSX.Element => {
 
+    const router = useNavigate();
+
     return<>
         <section className='w-[100%]  bg-[#E9E9E9]'>
-            <div className="absolute container-return w-[80%] ml-[10%] top-[30px]">
-                <p>Volver</p>
+        <div onClick={()=>router('/')} className="cursor-pointer absolute container-return w-[80%] ml-[10%] top-[30px] flex items-center">
+                <span ><IconArrowPrevious/></span><p className='ml-2 text-[18px] font-semibold'>Volver</p>
             </div>
 
             <div className="flex min-h-full flex-col justify-center px-4 py-8 lg:px-8">

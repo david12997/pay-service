@@ -1,4 +1,4 @@
-export const SendData = async(urls:string[],method:string,body?:string,token?:string,) =>{
+export const GetData = async(urls:string[],token?:string,) =>{
 
     try{
 
@@ -8,7 +8,7 @@ export const SendData = async(urls:string[],method:string,body?:string,token?:st
         urls.forEach((url:string, index:number)=>{
             
             promises[index] = fetch(url,{
-                method:method,
+                method:'GET',
                 headers:token !== undefined ? {
                     'Content-Type': 'application/json',
                     'Accept': 'application/json',
@@ -18,7 +18,7 @@ export const SendData = async(urls:string[],method:string,body?:string,token?:st
                     'Content-Type': 'application/json',
                     'Accept': 'application/json'
                 },
-                body:body
+                
             
             })           
         

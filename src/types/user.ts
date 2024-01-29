@@ -8,5 +8,6 @@ export type user = {
     phone:number,
     password:string,
     nit:number,
+    token?:string
 
 }
