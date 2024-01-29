@@ -1,11 +1,13 @@
 
 ### <img src="https://static.vecteezy.com/system/resources/thumbnails/012/042/292/small/warning-sign-icon-transparent-background-free-png.png" width="30px"> This project is in development
+
 # <img src="https://pay-service-cms.aipus.co/aipus-pay-service/assets/97ydi7u98rwo0k00" width="40px" height="40px" > Pay  Links
+
+#  Live project here -> [paylinks.apps](https://paylinks.apps.aipus.co/)
 
 ## Figma fast prototype
 https://github.com/david12997/pay-service/assets/51899338/22fad4c3-1eee-43a9-b097-9642b3e4a3e6
 
-#  Live project here -> [paylinks.apps](https://paylinks.apps.aipus.co/)
 
 ### Paylinks is a fullstack application that allows you to use mercadopago payment gateway  to generate beautiful payment links for products and services, it also exposes an API that abstracts mercadpogo API and allows you to create transactions and payment links via http requests easely
 
