@@ -23,8 +23,16 @@ ApiV1.use('/notifications/', require('./notifications'));
  * @routes  /api/v1/user/*
  * @desc agrupa todas las rutas relacionadas con usuarios.
  */
-
 ApiV1.use('/user/', require('./user'));
+
+
+/**
+ * @routes  /*
+ * @desc gather all routes related to the inventory.
+ * 
+ */
+ApiV1.use('/inventory/', require('./inventory'));
+
 
 
 /**
@@ -39,8 +47,9 @@ Templates.use('/paylinks/', require('./templates'));
  * @routes  /*
  * @desc agrupa todas las rutas relacionadas con el frontend.
  */
-
 ReactApp.use('/', require('./app'));
+
+
 
 export{
     ApiV1,

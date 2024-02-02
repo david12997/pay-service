@@ -68,7 +68,6 @@ PaymentRouter.post("/:provider/transaction/:idtransaction",authenticateToken,
     body('items').exists().withMessage('items is required'),
     body('status').exists().withMessage('status is required'),
     body('owner').exists().withMessage('owner is required'),
-    body('buyer').exists().withMessage('buyer is required'),
     body('payment_adapter').isString().withMessage('payment_adapter must be a string')
     .isLength({ min: 3 })
     .withMessage('payment_adapter must be at least 3 chars long'),
@@ -106,7 +105,7 @@ PaymentRouter.post("/:provider/transaction/:idtransaction",authenticateToken,
 
 /**
  * @route POST /api/v1/payments/transaction/:provider/id_transaction
- * @desc crea una transacción de pago.
+ * @desc actualizar transaccion con el preference id.
  * @access Privado
  */
 
@@ -146,8 +145,34 @@ PaymentRouter.post("/transaction/:provider/id_transaction",
 
         }
     }
+);
 
-)
+
+/**
+ * @route POST /api/v1/payments/:provider/create/
+ * @desc actualizar transaccion con el preference id.
+ * @access Privado
+*/
+
+PaymentRouter.post("/:provider/create/",authenticateToken,async(req: Request, res: Response) => {
+
+    try{
+
+        const paymentController = new PaymentsController(req.params.provider);
+        return paymentController.CreatePayment(req, res);
+
+    }catch(error){
+            
+            return res.status(500).json({
+                executed: 'routes/payments.ts',
+                message: 'error server while creating payment credit card',
+                errors: error
+            });
+    
+        }
+});
+
+
 
 
 module.exports = PaymentRouter;

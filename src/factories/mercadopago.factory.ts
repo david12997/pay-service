@@ -5,6 +5,7 @@ import { CheckoutAPIMercadoPago } from "./../services/mp.checkputapi";
 
 export abstract class ServiceMercadoPagoFactory{
     abstract getService(service_mp:string):any;
+    abstract createCreditCardPay ():any;
 }
 
 export class MercadoPagoFactory implements ServiceMercadoPagoFactory{
@@ -21,5 +22,11 @@ export class MercadoPagoFactory implements ServiceMercadoPagoFactory{
             default:
                 return new CheckoutProMercadoPago();
         }
+    }
+
+    createCreditCardPay ():CheckoutAPIMercadoPago{
+        
+        return new CheckoutAPIMercadoPago();
+    
     }
 }

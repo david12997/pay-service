@@ -2,7 +2,7 @@ export interface CheckoutAPIRequest {
     payment_adapter: string;
     adapter_type:    string;
     brick_type:       string;
-    buyer:           Buyer;
+    buyer?:           Buyer;
     seller:          Seller;
     transaction:     Transaction;
     delivery:        Delivery;

@@ -36,9 +36,8 @@ function App() {
           <HomePage/>
         </>}/>
 
-        <Route path="/home/new-link" element={<>
-        
-          <Navbar />
+        <Route path="/new-link" element={<>
+
           <NewLinkPage/>
         </>} />
 
