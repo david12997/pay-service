@@ -1,6 +1,5 @@
 import { useEffect } from "react";
 import { initMercadoPago, Payment } from '@mercadopago/sdk-react';
-import { access } from "fs";
 
 
 export interface PropsPaymentMethods {
