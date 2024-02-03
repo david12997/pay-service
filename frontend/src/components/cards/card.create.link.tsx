@@ -2,23 +2,34 @@ import CircleStep from "../common/circle.step"
 import { IconArrowLeft, IconCartCreateLink } from "../icons/coommon"
 
 export type CardCreateLinkProps = {
+    view: number,
     steps: number,
     step: number,
     title: string,
     button_text: string,
     children: React.ReactNode,
     addItmes: boolean
+    clickButtoNext?: () => void,
+    clickButtoBack?: () => void,
+    clickButtoSave?: () => void,
+    clickButtoAdd?: () => void,
+    clickButtoRemove?: () => void,
+    clickButtoEdit?: () => void,
+    clickButtoCancel?: () => void,
+    clickButtoCreate?: () => void,
 }
 
 const CardCreateLink = (props:CardCreateLinkProps):React.JSX.Element => {
 
     const stepsArr = Array.from(Array(props.steps).keys());
 
+    console.log('step card create link',props.step)
+
     return<>
         <div className="relative card-content m-2 md:m-8 w-[94%] md:w-[90%] bg-white min-h-[500px]  rounded-[9px] pb-[90px]">
             <div className="title w-[94%] ml-[3%] h-[60px]  flex items-center cursor-pointer relative">
-                <span className="icon-come-back mr-4">
-                   {props.step !== 0 && <IconArrowLeft/>}
+                <span onClick={props.clickButtoBack} className="icon-come-back mr-4">
+                   {props.view !== 1 && <IconArrowLeft/>}
                 </span> 
                 <p className="text-[18px] md:text-[20px] font-bold text-black">{props.title}</p>
                 <div className="icon-cart absolute left-[86%] md:left-[96%]">
@@ -63,7 +74,7 @@ const CardCreateLink = (props:CardCreateLinkProps):React.JSX.Element => {
                 :
                 <>
                     <div className="container-button w-[100%] flex  absolute bottom-[20px]  items-center justify-center">
-                        <button className="rounded-[6px] w-[90%] min-w-[250px] max-w-[450px] h-[60px] text-[20px] font-semibold text-white  bg-[#602AE8]">
+                        <button onClick={props.clickButtoNext} className="rounded-[6px] w-[90%] min-w-[250px] max-w-[450px] h-[60px] text-[20px] font-semibold text-white  bg-[#602AE8]">
                             {props.button_text}
                         </button>
                     </div>

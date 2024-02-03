@@ -10,7 +10,7 @@ export class UserServiceRepository {
     }
 
     async create(userService:userService): Promise<void> {
-        console.log(userService.name);
+   
         await this.connection.execute(
             'INSERT INTO user_service (status,owner,name,price,iva,recollector,media,services_user,views,finished_pays) VALUES (?,?,?,?,?,?,?,?,?,?)',
             [
