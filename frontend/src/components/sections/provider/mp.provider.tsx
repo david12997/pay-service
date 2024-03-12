@@ -26,7 +26,7 @@ const MercadopagoProvider = (props:{methods:PropsPaymentMethods}):JSX.Element =>
   const onSubmit = async ({ selectedPaymentMethod, formData } ) => {
   
     const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiRGF2aWQiLCJpYXQiOjE3MDYwMzEyNzl9.S-TcbW4VG9BiMK_EdTtfaDEiymvR_rWCgrkehPr2eVo'
-    //formData.append('access_token', 'APP_USR-cc500aec-8c5d-4e32-9b58-a11513eae20e')
+    
     // callback llamado al hacer clic en el botón enviar datos
     return new Promise((resolve, reject) => {
       fetch(`${process.env.API_URL}/payments/mercadopago/create/`, {

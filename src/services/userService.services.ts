@@ -1,8 +1,9 @@
 import { userService } from "./../types/user.service";
 import { UserServiceRepository } from "./../repositories/user.services.repository";
 import { DatabaseAdapter } from "./../infrastructure/databases/mysql2.adapter";
+import { UserRepository } from "./../repositories/users.repository";
 
-export class UserService{
+export class UserServices{
 
     userService: userService;
     private database: DatabaseAdapter
@@ -33,17 +34,31 @@ export class UserService{
         this.userService = userService;
     }
 
-    async create(service:userService): Promise<any>{
+    async create(service:userService,emailUser:string ): Promise<any>{
        
         try{
             await this.database.connect();
             const userServiceRepository = new UserServiceRepository(this.database.getConnection());
-            console.log(service.name);
+            const user = new UserRepository(this.database.getConnection());
+
+            const userId = await user.findUserByEmail(emailUser);
+
+            if(userId.length === 0 || userId === undefined || userId === null){
+                return Promise.reject({
+                    status: 400,
+                    message: 'User not found',
+                    executed: 'userServiceService.create()'
+                });
+            }
+            
+            service.services_user = userId[0].id;
+            const createNewService = await userServiceRepository.create(service);
+
 
             return Promise.resolve({
                 status: 200,
                 message: 'User service created',
-                service
+                service: createNewService
             });
 
         }catch(error){

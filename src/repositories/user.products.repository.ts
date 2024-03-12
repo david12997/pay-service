@@ -10,7 +10,7 @@ export class UserProductsRepository {
     }
 
     async create(userProducts:userProducts): Promise<void> {
-        console.log(userProducts.name);
+        
         await this.connection.execute(
             'INSERT INTO user_products (status,owner,name,price,iva,description,media,delivery,price_delivery,product_user,stock,views,finished_pays) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)',
             [

@@ -114,10 +114,10 @@ export const Step2 = (props:Step):React.JSX.Element | null => {
             <>
             <div className="view-5 w-[100%] ">
                 <div className="contauner-buttons w-[100%]  flex flex-col items-center justify-center flex-wrap mt-20">
-                    <button className="min-w-[260px] max-w-[420px] h-[50px] rounded-[9px] bg-[#5A8302] m-2">
+                    <button className="min-w-[230px] max-w-[420px] h-[50px] rounded-[9px] bg-[#5A8302] m-2">
                         <p className="text-[18px] md:text-[20px] font-semibold text-white">Crear producto </p>
                     </button>
-                    <button className="min-w-[260px] max-w-[420px] h-[50px] rounded-[9px] bg-[#0B6F88] m-2">
+                    <button className="min-w-[230px] max-w-[420px] h-[50px] rounded-[9px] bg-[#0B6F88] m-2">
                         <p className="text-[18px] md:text-[20px] font-semibold text-white">Añadir del inventario</p>
                     </button>
                 </div>
@@ -173,10 +173,10 @@ export const Step2 = (props:Step):React.JSX.Element | null => {
             
             <div className="view-7 w-[100%] ">
                 <div className="contauner-buttons w-[100%]  flex flex-col items-center justify-center flex-wrap mt-20">
-                    <button className="min-w-[260px] max-w-[420px] h-[50px] rounded-[9px] bg-[#5A8302] m-2">
+                    <button className="min-w-[230px] max-w-[420px] h-[50px] rounded-[9px] bg-[#5A8302] m-2">
                         <p className="text-[18px] md:text-[20px] font-semibold text-white">Crear otro producto </p>
                     </button>
-                    <button className="min-w-[260px] max-w-[420px] h-[50px] rounded-[9px] bg-[#0B6F88] m-2">
+                    <button className="min-w-[230px] max-w-[420px] h-[50px] rounded-[9px] bg-[#0B6F88] m-2">
                         <p className="text-[18px] md:text-[20px] font-semibold text-white">Añadir del inventario</p>
                     </button>
                 </div>
@@ -205,9 +205,17 @@ export const Step3 = (props:Step):React.JSX.Element | null => {
 
     return<>
     <div className="view-8 w-[100%] mb-[100px] ">
-                       
+        <button onMouseEnter={()=>setChangeColor(!changeColor)} onMouseLeave={()=>setChangeColor(!changeColor)} className="relative w-[100%] h-[50px] mt-4 bg-[#0B6F88]  font-semibold text-white rounded-[6px]">
+            Elegir color
+            {
+                changeColor
+                &&
+                <HexColorPicker className="top-[-140px] left-[5%] md:left-[25%]" style={{position:'absolute'}} color={color} onChange={setColor} />
+            }
+            
+        </button>   
         <>
-        <section className="example-screen w-[100%] h-[300px] bg-[#e6e6e6] mt-8 relative ">
+        <section className="example-screen w-[100%] h-[300px] bg-[#e6e6e6] mt-2 relative ">
             <div style={{color:color,background:color}} className="banner w-[100%] h-[120px] ">
                 banner
             </div>
@@ -219,19 +227,9 @@ export const Step3 = (props:Step):React.JSX.Element | null => {
             </div>
         </section>
         </>
-        <div className=" w-[90%] ml-[5%] h-[50px] md:w-[50%] md:ml-[25%] mt-[18px] mb-[10px]">
-            <input style={{color:color}} readOnly value={`Color principal:${color}`} className="w-[100%] h-[48px] bg-[#e6e6e6] border border-[#e6e6e6] rounded-[6px] "/>
-        </div>
+
         
-        <button onMouseEnter={()=>setChangeColor(!changeColor)} onMouseLeave={()=>setChangeColor(!changeColor)} className="relative w-[90%] ml-[5%] h-[50px] md:w-[46%] md:ml-[27%] bg-[#0B6F88]  font-semibold text-white rounded-[6px]">
-            Elegir color
-            {
-                changeColor
-                &&
-                <HexColorPicker className="top-[-140px] left-[5%] md:left-[25%]" style={{position:'absolute'}} color={color} onChange={setColor} />
-            }
-            
-        </button>
+        
         
         
     </div>

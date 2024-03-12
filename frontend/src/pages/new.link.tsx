@@ -13,6 +13,20 @@ const NewLinkPage = ():JSX.Element => {
     const [view, setView] = useState<number>(1);
     const authentication = useAuthToken();
 
+    const handleTitle = (view:number):string => {
+
+        return view === 1 ?  "Antes de empezar"
+        : view === 2 ? "Añadir evento"
+        : view === 3 ? "Añadir Access Token "
+        : view === 4 ? "¿Qué  quieres vender?"
+        : view === 5 ? "Importar/Crear producto"
+        : view === 6 ? "Formulario del producto"
+        : view === 7 ? "Añadir otro producto"
+        : view === 8 ? "Color de la interfaz"
+        : view === 9 ? "Configurar link"
+        : 'Datos del producto' 
+    }
+
 
     useEffect(()=>{
         
@@ -32,7 +46,7 @@ const NewLinkPage = ():JSX.Element => {
                         view={view}
                         steps={4}
                         step={step}
-                        title="Antes de empezar"
+                        title={handleTitle(view)}
                         button_text="Siguiente"
                         addItmes={false}
                         clickButtoNext={()=>{
@@ -65,7 +79,7 @@ const NewLinkPage = ():JSX.Element => {
                         }
                         {
                             step === 2 && <Step2 view={view} data_view4={{createProduct:()=>{
-                                setView(6);
+                                setView(5);
                             
                             }}} />
                         }

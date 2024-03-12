@@ -57,15 +57,12 @@ InventoryRoutes.post("/product/",authenticateToken,multerAdapter.single('file'),
  * 
  */
 
-InventoryRoutes.post("/services/", authenticateToken, (req: Request, res: Response) => {
+InventoryRoutes.post("/service/", authenticateToken,multerAdapter.single('file'),  (req: Request, res: Response) => {
     
     try{
-        
-        return res.status(200).json({
-            message: 'inventory.routes service created',
-            service: req.body
-        });
-
+       
+        const controllerInventory = new inventoryController();
+        return controllerInventory.createService(req, res);
 
     }catch(error){
 
@@ -74,8 +71,25 @@ InventoryRoutes.post("/services/", authenticateToken, (req: Request, res: Respon
             error
         });
     }
+    }, (error: any, req: Request, res: Response, next: NextFunction) => {
 
-});
+        // Handle Multer errors here
+        if (error instanceof multer.MulterError) {
+            // Handle specific Multer errors (e.g., file size limit)
+            if (error.code === 'LIMIT_FILE_SIZE') {
+                return res.status(400).json({ message: 'File size limit exceeded.' });
+            }
+            // Handle other Multer errors
+            return res.status(400).json({ message: `Multer error: ${error.message}` });
+        
+        } else {
+
+            next(error); // Forward other types of errors
+
+        }
+
+    }
+);
 
 
 

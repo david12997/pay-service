@@ -33,7 +33,9 @@ const CardCreateLink = (props:CardCreateLinkProps):React.JSX.Element => {
                 </span> 
                 <p className="text-[18px] md:text-[20px] font-bold text-black">{props.title}</p>
                 <div className="icon-cart absolute left-[86%] md:left-[96%]">
-                    <IconCartCreateLink width="30" height="28"/>
+                    {
+                        props.step >= 2 && <IconCartCreateLink width="30" height="28"/>
+                    }
                 </div>
             </div>
 
@@ -74,9 +76,14 @@ const CardCreateLink = (props:CardCreateLinkProps):React.JSX.Element => {
                 :
                 <>
                     <div className="container-button w-[100%] flex  absolute bottom-[20px]  items-center justify-center">
-                        <button onClick={props.clickButtoNext} className="rounded-[6px] w-[90%] min-w-[250px] max-w-[450px] h-[60px] text-[20px] font-semibold text-white  bg-[#602AE8]">
-                            {props.button_text}
-                        </button>
+                        {
+                            props.view !== 4 // this mview you need to select if you want to sell a new product or a service
+                            &&
+                            <button onClick={props.clickButtoNext} className="rounded-[6px] w-[90%] min-w-[250px] max-w-[450px] h-[60px] text-[20px] font-semibold text-white  bg-[#602AE8]">
+                                {props.button_text}
+                            </button>
+                        }
+                        
                     </div>
                 </>
             }

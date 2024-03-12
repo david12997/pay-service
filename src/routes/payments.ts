@@ -106,7 +106,7 @@ PaymentRouter.post("/:provider/transaction/:idtransaction",authenticateToken,
 /**
  * @route POST /api/v1/payments/transaction/:provider/id_transaction
  * @desc actualizar transaccion con el preference id.
- * @access Privado
+ * @access Public
  */
 
 PaymentRouter.post("/transaction/:provider/id_transaction",
@@ -150,7 +150,7 @@ PaymentRouter.post("/transaction/:provider/id_transaction",
 
 /**
  * @route POST /api/v1/payments/:provider/create/
- * @desc actualizar transaccion con el preference id.
+ * @desc create payment.
  * @access Privado
 */
 
