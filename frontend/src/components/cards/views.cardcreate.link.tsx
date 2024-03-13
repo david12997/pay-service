@@ -1,11 +1,13 @@
 import { useState } from "react";
 import Input1 from "../inputs/input.1";
 import { HexColorPicker } from "react-colorful";
+import { useAppDispatch, useAppSelector } from "../../store";
+import SetTypePaylink from "../../services/set.type.paylink";
 
 export interface Step{
     view:number,
     data_view4?:{
-        createProduct:()=>void
+        createProductOrService:()=>void
     }
 }
 
@@ -88,6 +90,12 @@ export const Step2 = (props:Step):React.JSX.Element | null => {
     if(!views.includes(props.view)) return null;
 
     const myformData = new FormData();
+    const statePayLink = useAppSelector(state => state.paylink);
+    const dispatch = useAppDispatch();
+
+    const handleTypePaylink = (type:"product" | "service") => SetTypePaylink(type,dispatch);
+    
+
     return<>
 
         {
@@ -99,10 +107,18 @@ export const Step2 = (props:Step):React.JSX.Element | null => {
                     ¿Qué quieres vender?
                 </h1>
                 <div className="contauner-buttons w-[100%] mt-4 flex items-center justify-center flex-wrap">
-                    <button onClick={props.data_view4?.createProduct} className="min-w-[200px] max-w-[360px] h-[50px] rounded-[9px] bg-[#e6e6e6] m-2">
+                    <button onClick={()=>{
+                        handleTypePaylink("product");
+                        props.data_view4?.createProductOrService();
+
+                    }} className="min-w-[200px] max-w-[360px] h-[50px] rounded-[9px] bg-[#e6e6e6] m-2">
                         <p className="text-[18px] md:text-[20px] font-bold text-[#6e6e6e]">Productos</p>
                     </button>
-                    <button className="min-w-[200px] max-w-[360px] h-[50px] rounded-[9px] bg-[#e6e6e6] m-2">
+                    <button onClick={()=>{
+                        handleTypePaylink("service");
+                        props.data_view4?.createProductOrService();
+                    
+                    }} className="min-w-[200px] max-w-[360px] h-[50px] rounded-[9px] bg-[#e6e6e6] m-2">
                         <p className="text-[18px] md:text-[20px] font-bold text-[#6e6e6e]">Servicios</p>
                     </button>
                 </div>
@@ -115,7 +131,9 @@ export const Step2 = (props:Step):React.JSX.Element | null => {
             <div className="view-5 w-[100%] ">
                 <div className="contauner-buttons w-[100%]  flex flex-col items-center justify-center flex-wrap mt-20">
                     <button className="min-w-[230px] max-w-[420px] h-[50px] rounded-[9px] bg-[#5A8302] m-2">
-                        <p className="text-[18px] md:text-[20px] font-semibold text-white">Crear producto </p>
+                        <p className="text-[18px] md:text-[20px] font-semibold text-white">{
+                            statePayLink.type === "product" ? "Crear producto" : "Crear servicio"
+                        } </p>
                     </button>
                     <button className="min-w-[230px] max-w-[420px] h-[50px] rounded-[9px] bg-[#0B6F88] m-2">
                         <p className="text-[18px] md:text-[20px] font-semibold text-white">Añadir del inventario</p>
@@ -174,7 +192,9 @@ export const Step2 = (props:Step):React.JSX.Element | null => {
             <div className="view-7 w-[100%] ">
                 <div className="contauner-buttons w-[100%]  flex flex-col items-center justify-center flex-wrap mt-20">
                     <button className="min-w-[230px] max-w-[420px] h-[50px] rounded-[9px] bg-[#5A8302] m-2">
-                        <p className="text-[18px] md:text-[20px] font-semibold text-white">Crear otro producto </p>
+                        <p className="text-[18px] md:text-[20px] font-semibold text-white">{
+                            statePayLink.type === "product" ? "Crear otro producto" : "Crear otro servicio"
+                        } </p>
                     </button>
                     <button className="min-w-[230px] max-w-[420px] h-[50px] rounded-[9px] bg-[#0B6F88] m-2">
                         <p className="text-[18px] md:text-[20px] font-semibold text-white">Añadir del inventario</p>
@@ -205,15 +225,7 @@ export const Step3 = (props:Step):React.JSX.Element | null => {
 
     return<>
     <div className="view-8 w-[100%] mb-[100px] ">
-        <button onMouseEnter={()=>setChangeColor(!changeColor)} onMouseLeave={()=>setChangeColor(!changeColor)} className="relative w-[100%] h-[50px] mt-4 bg-[#0B6F88]  font-semibold text-white rounded-[6px]">
-            Elegir color
-            {
-                changeColor
-                &&
-                <HexColorPicker className="top-[-140px] left-[5%] md:left-[25%]" style={{position:'absolute'}} color={color} onChange={setColor} />
-            }
-            
-        </button>   
+         
         <>
         <section className="example-screen w-[100%] h-[300px] bg-[#e6e6e6] mt-2 relative ">
             <div style={{color:color,background:color}} className="banner w-[100%] h-[120px] ">
@@ -227,9 +239,15 @@ export const Step3 = (props:Step):React.JSX.Element | null => {
             </div>
         </section>
         </>
-
-        
-        
+        <button onMouseEnter={()=>setChangeColor(!changeColor)} onMouseLeave={()=>setChangeColor(!changeColor)} className="relative w-[100%] h-[50px] mt-4 bg-[#0B6F88]  font-semibold text-white rounded-[6px]">
+            Elegir color
+            {
+                changeColor
+                &&
+                <HexColorPicker className="top-[-140px] left-[5%] md:left-[25%]" style={{position:'absolute'}} color={color} onChange={setColor} />
+            }
+            
+        </button>  
         
         
     </div>

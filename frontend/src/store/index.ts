@@ -3,6 +3,7 @@ import { persistStore, persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage'; // defaults to localStorage for web
 
 import userSliceReducer from "./user";
+import paylinkSliceReducer  from "./paylink";
 
 import { useDispatch, useSelector } from "react-redux";
 import type { TypedUseSelectorHook } from "react-redux"; 
@@ -15,6 +16,7 @@ const persistConfig = {
 
 const rootReducer = combineReducers({
     user: userSliceReducer,
+    paylink: paylinkSliceReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

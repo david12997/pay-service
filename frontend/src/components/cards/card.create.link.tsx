@@ -23,7 +23,6 @@ const CardCreateLink = (props:CardCreateLinkProps):React.JSX.Element => {
 
     const stepsArr = Array.from(Array(props.steps).keys());
 
-    console.log('step card create link',props.step)
 
     return<>
         <div className="relative card-content m-2 md:m-8 w-[94%] md:w-[90%] bg-white min-h-[500px]  rounded-[9px] pb-[90px]">

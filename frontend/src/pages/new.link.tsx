@@ -4,6 +4,7 @@ import CardCreateLink from "../components/cards/card.create.link";
 import NaigationApp from "../components/common/navigation.card";
 import { Step0, Step1, Step2, Step3, Step4 } from "../components/cards/views.cardcreate.link";
 import useAuthToken from "../hooks/authorization";
+import { useAppSelector } from "../store";
 
 
 
@@ -12,6 +13,7 @@ const NewLinkPage = ():JSX.Element => {
     const [step, setStep] = useState<number>(0);
     const [view, setView] = useState<number>(1);
     const authentication = useAuthToken();
+    const statePaylink = useAppSelector((state) => state.paylink);
 
     const handleTitle = (view:number):string => {
 
@@ -19,9 +21,9 @@ const NewLinkPage = ():JSX.Element => {
         : view === 2 ? "Añadir evento"
         : view === 3 ? "Añadir Access Token "
         : view === 4 ? "¿Qué  quieres vender?"
-        : view === 5 ? "Importar/Crear producto"
-        : view === 6 ? "Formulario del producto"
-        : view === 7 ? "Añadir otro producto"
+        : view === 5 ? ` ${statePaylink.type === "product" ? "Importar Producto" : "Importar Servicio"}`
+        : view === 6 ? ` ${statePaylink.type === "product" ? "Formulario Producto" : "Formulario Servicio"}`
+        : view === 7 ? ` ${statePaylink.type === "product" ? "Añadir Producto" : "Añadir Servicio"}`
         : view === 8 ? "Color de la interfaz"
         : view === 9 ? "Configurar link"
         : 'Datos del producto' 
@@ -78,7 +80,7 @@ const NewLinkPage = ():JSX.Element => {
                             step === 1 && <Step1 view={view} />
                         }
                         {
-                            step === 2 && <Step2 view={view} data_view4={{createProduct:()=>{
+                            step === 2 && <Step2 view={view} data_view4={{createProductOrService:()=>{
                                 setView(5);
                             
                             }}} />
