@@ -3,14 +3,18 @@ import express, {  RequestHandler, Express } from 'express';
 import { ServerInterface } from './../../interfaces/server.interface';
 import path from 'path';
 
+
 export class ExpressServer implements ServerInterface {
     private app: Express;
+
 
     constructor() {
         this.app = express();
         this.app.set('view engine', 'ejs');
         this.app.set('views', './src/views');
         this.app.use(express.static(path.join(__dirname, '../../../frontend/dist')));
+
+  
     }
 
     listen(port: number | string): void {
@@ -43,5 +47,7 @@ export class ExpressServer implements ServerInterface {
     }
 
 
-    // Puedes agregar más métodos según sea necesario
+
+
+   
 }

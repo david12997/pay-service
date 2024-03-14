@@ -1,10 +1,12 @@
 import { useEffect, useRef, useState } from "react";
 import { IcoCrearLink, IconHome, IconInventario, IconProveedores, IconSalir } from "../icons/navigation.app"
+import { useNavigate } from "react-router-dom";
 
 const NaigationApp = ():React.JSX.Element => {
 
     const [activeMenu, setActiveMenu] = useState<boolean>(false);
     const MenuRef = useRef<HTMLDivElement>(null);
+    const router = useNavigate();
 
     useEffect(() => {
         console.log(activeMenu)
@@ -46,13 +48,13 @@ const NaigationApp = ():React.JSX.Element => {
 
             <div className={`container-options w-[80%] ${activeMenu ?'ml-[10%]' : 'ml-[18%]'} mt-[60px] h-[64%] cursor-pointer`}>
                 <ul className="mylist flex flex-col items-center h-[100%] justify-between">
-                    <li className={` ${ activeMenu ? "justify-start" :"justify-center"} w-[100%] flex items-center  text-white font-bold text-[18px] md:text-[20px]`}> 
+                    <li onClick={()=>router('/home')} className={` ${ activeMenu ? "justify-start" :"justify-center"} w-[100%] flex items-center  text-white font-bold text-[18px] md:text-[20px]`}> 
                         <span className="mr-4"><IconHome/> </span>{ activeMenu ? " Inicio": ""}
                     </li>
                     <li className={` ${ activeMenu ? "justify-start" :"justify-center"} w-[100%] flex items-center  text-white font-bold text-[18px] md:text-[20px]`}>
                         <span className="mr-4"><IconInventario/></span> { activeMenu ? " Inventario": ""} 
                     </li>
-                    <li className={` ${ activeMenu ? "justify-start" :"justify-center"} w-[100%] flex items-center  text-white font-bold text-[18px] md:text-[20px]`}>
+                    <li onClick={()=>router('/new-link')} className={` ${ activeMenu ? "justify-start" :"justify-center"} w-[100%] flex items-center  text-white font-bold text-[18px] md:text-[20px]`}>
                         <span className="mr-4"><IcoCrearLink/></span> { activeMenu ? " Crear link": ""}
                     </li>
                     <li className={` ${ activeMenu ? "justify-start" :"justify-center"} w-[100%] flex items-center  text-white font-bold text-[18px] md:text-[20px]`}>

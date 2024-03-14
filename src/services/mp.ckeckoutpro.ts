@@ -124,5 +124,12 @@ export class CheckoutProMercadoPago implements MercadoPagoServiceInterface{
 
     }
 
+    async createPaymentCreditCard(data: any): Promise<any> {
+        return Promise.resolve({
+            message:'createPaymentCreditCard',
+            data
+        });
+    }
+
 
 }

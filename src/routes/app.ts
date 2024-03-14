@@ -45,12 +45,12 @@ ReactRouter.get("/home",(req, res) => {
   });
 
 /**
- * @route GET // /home/new-link
+ * @route GET // /new-link
  * @desc create new paylink.
  * @access Publico
  */
 
-ReactRouter.get("/home/new-link",(req, res) => {
+ReactRouter.get("/new-link",(req, res) => {
     res.sendFile(path.join(__dirname, '../../frontend/dist', 'index.html'));
 });
 

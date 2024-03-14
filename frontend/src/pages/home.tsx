@@ -4,11 +4,12 @@ import CardAccessToken from '../components/cards/card.access.token';
 import { IcoCrearLink, IconInventario } from '../components/icons/navigation.app';
 import ButtonIcon from '../components/buttons/button.icon';
 import useAuthToken from '../hooks/authorization';
+import { IconWarning } from '../components/icons/coommon';
 
 const HomePage = ():React.JSX.Element => {
     
     const authentication = useAuthToken();
- 
+
     return<>
         
         {
@@ -17,12 +18,14 @@ const HomePage = ():React.JSX.Element => {
             <>
                 <section className='w-screen h-screen'>
                     <NaigationApp/>
-                    <section className='fixed container-content border border-black w-[80%] h-[100%] ml-[20%] md:ml-[15%]'>
+                    <section className='fixed overflow-y-scroll overflow-x-hidden container-content border border-black w-[80%] h-[100%] ml-[20%] md:ml-[15%]'>
 
-                        <div className='structure-1-homepage flex flex-wrap md:m-4'>
+                        <div className='structure-1-homepage flex flex-wrap md:m-4 w-[100%]'>
+
                             <div className='md:min-w-[330px]'>
                                 <CardAccessToken/>
                             </div>
+
                             <div className="w-[100%] md:w-[40%] container-buttons min-w-[270px] flex flex-col justify-center items-center">
                                 <ButtonIcon 
                                     text='Crear Link' 
@@ -38,7 +41,25 @@ const HomePage = ():React.JSX.Element => {
                             </div>
                         
                         </div>
-                    
+
+                        <div className="structure-2-homepage w-[100%] md:m-4">
+                            <>
+                                <hr className='w-[94%] ml-[3%] h-[2px] bg-[#adadad] mt-8 mb-8' />
+                                <h1 className='m-2 text-[18px] md:text-[20px] text-black font-bold'>Mis links de pago</h1>
+                                <section className='section-empty-links-index flex justify-center items-center m-2  bg-white w-[95%]  rounded-[9px] min-h-[400px] '>
+                                    <div className="container-empty border">
+                                        <div className="icon w-[100%] flex justify-center">
+                                            <IconWarning/>
+                                        </div>
+                                        <p className='text-[18px] font-bold text-[#6e6e6e] mt-2'>Aún no tienes links de pago creados</p>
+                                        
+                                    </div>
+                                </section>
+                            
+                            
+                            </>
+                        
+                        </div>                    
 
 
                     </section>

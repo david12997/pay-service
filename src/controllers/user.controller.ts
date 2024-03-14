@@ -1,7 +1,6 @@
 import { Request, Response } from 'express';
 import { user } from 'types/user';
 import { UserService } from './../services/user.services';
-import { stat } from 'fs';
 
 export class userController {
     
@@ -94,6 +93,7 @@ export class userController {
             return res.status(200).json({
                 token,
                 user: {
+                    id: user.id,
                     username: user.name,
                     email: user.email,
                     status: user.status,
@@ -102,6 +102,29 @@ export class userController {
 
                 }
                 
+            });
+    
+        }catch(error){
+
+            return res.status(500).json({
+                message: 'internal server error',
+                error
+            });
+        }
+    
+    }
+
+    // POST /api/v1/user/mercadopago/set-token
+    async setToken(req: {token:string,email:string}, res: Response) {
+
+        try{
+            const userService = new UserService();
+            const mp_token = await userService.encodeMPAccessToken(req.token);
+            const user = await userService.setMPAccessToken(req.email, mp_token);
+    
+            return res.status(200).json({
+                mp_token,
+                user
             });
     
         }catch(error){

@@ -40,7 +40,7 @@ export class UserRepository {
                 user.phone,
                 user.password,
                 user.nit,
-                user.id
+               
             ]
         );
     }
@@ -96,6 +96,16 @@ export class UserRepository {
         return rows ;
     }
 
+    async setUserAccessToken(email:string,token:string): Promise<void> {
+
+        await this.connection.execute(
+            'UPDATE usuario SET mp_access_token = ? WHERE email = ?',
+            [
+                token,
+                email
+            ]
+        );
+    }
 
 
 

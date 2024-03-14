@@ -3,6 +3,7 @@ import { UserRepository } from "./../repositories/users.repository";
 import { DatabaseAdapter } from "./../infrastructure/databases/mysql2.adapter";
 import bycript from "bcrypt";
 import jwt from "jsonwebtoken";
+import CryptoJS from "crypto-js";
 
 
 export class UserService{
@@ -270,5 +271,70 @@ export class UserService{
             });
         }
     }
+
+    // encodeMPAccessToken 
+    async encodeMPAccessToken(mp_access_token:string): Promise<string> {
+        try{
+
+            const encodeToken = CryptoJS.AES.encrypt(mp_access_token, process.env.ACCESS_TOKEN_SECRET!).toString();
+            return Promise.resolve(encodeToken);
+            
+        }catch(error){
+            return Promise.reject({
+                error,
+                code:500,
+                message:"user.service.ts error in class user encodeMPAccessToken"
+            });
+        }
+    }
+
+    // decodeMPAccessToken
+    async decodeMPAccessToken(mp_access_token:string): Promise<string> {
+        try{
+
+            const decodeToken = CryptoJS.AES.decrypt(mp_access_token, process.env.ACCESS_TOKEN_SECRET!).toString(CryptoJS.enc.Utf8);
+            return Promise.resolve(decodeToken);
+            
+        }catch(error){
+            return Promise.reject({
+                error,
+                code:500,
+                message:"user.service.ts error in class user decodeMPAccessToken"
+            });
+        }
+    }
+
+    //setMPAccessToken
+    async setMPAccessToken(email:string,mp_access_token:string): Promise<any> {
+        try{
+
+            await this.database.connect();
+            const userRepository = new UserRepository(this.database.getConnection());
+           // console.log(email);
+            //console.log(mp_access_token);
+            const [rows]:any = await userRepository.findUserByEmail(email);
+            if(rows.length==0){
+                throw new Error("El usuario no existe")
+            }
+
+            const updateToken = await userRepository.setUserAccessToken(email,mp_access_token);
+
+            return Promise.resolve({
+                updateToken,
+                status:"success update user",
+                operation:"user.service setMPAccessToken"
+            
+            });
+
+            
+        }catch(error){
+            return Promise.reject({
+                error,
+                code:500,
+                message:"user.service.ts error in class user setMPAccessToken"
+            });
+        }
+    }
+
 
 }
