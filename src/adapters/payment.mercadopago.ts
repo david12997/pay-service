@@ -1,7 +1,8 @@
-import { MercadoPagoMethodsAvailable } from "types/mp.payment.methods";
-import { MercadoPagoFactory } from "./../factories/mercadopago.factory";
-import { PaymentAdapterInterface } from "./../interfaces/payment.adapter.interface";
-import { CheckoutProRequest } from "./../types/request.mp.checkoutpro";
+import { MercadoPagoMethodsAvailable } from "../types/mp.payment.methods";
+import { MercadoPagoFactory } from "../factories/mercadopago.factory";
+import { PaymentAdapterInterface } from "../interfaces/payment.adapter.interface";
+import { CheckoutProRequest } from "../types/request.mp.checkoutpro";
+import { CheckoutAPIRequest } from "../types/request.mp.checkoutapi";
 
 
 export class PaymentMercadoPagoAdapter implements PaymentAdapterInterface {
@@ -43,7 +44,7 @@ export class PaymentMercadoPagoAdapter implements PaymentAdapterInterface {
 
 
         try{
-            const [params,body] = data as [{provaider:string,idtransaction:string},CheckoutProRequest];
+            const [params,body] = data as [{provaider:string,idtransaction:string},CheckoutProRequest | CheckoutAPIRequest];
 
             const mpService = this.mpFactory.getService(body.adapter_type);
             
@@ -72,6 +73,8 @@ export class PaymentMercadoPagoAdapter implements PaymentAdapterInterface {
     async confirmPayment(paymentId: string): Promise<any> {
         // Lógica para confirmar un pago con la API de MercadoPago
     }
+
+    
 }
 
 

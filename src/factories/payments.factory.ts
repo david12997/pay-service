@@ -1,7 +1,7 @@
 import { PaymentAdapterInterface } from "../interfaces/payment.adapter.interface";
-import { PaymentMercadoPagoAdapter } from "../services/payment.mercadopago";
-import { PaymentPaypalAdapter } from "../services/payment.paypal";
-import { PaymentPayUAdapter } from "../services/payment.payu";
+import { PaymentMercadoPagoAdapter } from "../adapters/payment.mercadopago";
+import { PaymentPaypalAdapter } from "../adapters/payment.paypal";
+import { PaymentPayUAdapter } from "../adapters/payment.payu";
 
 
 export abstract class PaymentFactory{
