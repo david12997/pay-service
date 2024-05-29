@@ -41,7 +41,6 @@ export class UserService{
         try{
             
             this.setUser=user;
-            console.log(this.database.getConnection());
             await this.database.connect();
             const userRepository = new UserRepository(this.database.getConnection());
            
