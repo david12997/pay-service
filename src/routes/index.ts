@@ -7,21 +7,21 @@ const ReactApp = Router();
 
 /**
  * @routes  /api/v1/payments/*
- * @desc agrupa todas las rutas relacionadas con pagos, pasarelas,  proveedores y transacciones.
+ * @desc gather all routes related to payments.
  */
 ApiV1.use('/payments/', require('./payments'));
 
 
 /**
  * @routes  /api/v1/notifications/*
- * @desc agrupa todas las rutas relacionadas con notificaciones.
+ * @desc gather all routes related to notifications.
  */
 ApiV1.use('/notifications/', require('./notifications'));
 
 
 /**
  * @routes  /api/v1/user/*
- * @desc agrupa todas las rutas relacionadas con usuarios.
+ * @desc gather all routes related to the user.
  */
 ApiV1.use('/user/', require('./user'));
 
@@ -37,7 +37,7 @@ ApiV1.use('/inventory/', require('./inventory'));
 
 /**
  * @routes  /paylinks/*
- * @desc agrupa todas las rutas relacionadas con templates.
+ * @desc gather all routes related to paylinks
  */
 
 Templates.use('/paylinks/', require('./templates'));
@@ -45,7 +45,7 @@ Templates.use('/paylinks/', require('./templates'));
 
 /**
  * @routes  /*
- * @desc agrupa todas las rutas relacionadas con el frontend.
+ * @desc gather all routes related to frontned.
  */
 ReactApp.use('/', require('./app'));
 
