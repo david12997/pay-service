@@ -44,7 +44,6 @@ export class userController {
     // POST /api/v1/user/google/sign-up/:key
     async createUserWithGoogle(req: user, res: Response) {
 
-        console.log(req)
 
         try{
 
