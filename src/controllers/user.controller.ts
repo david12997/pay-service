@@ -44,7 +44,9 @@ export class userController {
     // POST /api/v1/user/google/sign-up/:key
     async createUserWithGoogle(req: user, res: Response) {
 
+
         try{
+
             const userServices = new UserService();
             const createWithGoogle = await userServices.createWithGoogle(req)
 

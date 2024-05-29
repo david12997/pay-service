@@ -60,7 +60,7 @@ export class UserService{
             return Promise.reject({
                 error:error.message,
                 code:500,
-                message:"user.service.ts error in class user"
+                message:"user.service.ts error in class user create"
             });
         }
         
@@ -71,6 +71,7 @@ export class UserService{
         try{
             
             this.setUser=user;
+        
             await this.database.connect();
             const userRepository = new UserRepository(this.database.getConnection());
 
@@ -109,7 +110,7 @@ export class UserService{
             return Promise.reject({
                 error:error.message,
                 code:500,
-                message:"user.service.ts error in class user"
+                message:"user.service.ts error in class user createWithGoogle"
             });
         }
     }
@@ -135,7 +136,7 @@ export class UserService{
             return Promise.reject({
                 error,
                 code:500,
-                message:"user.service.ts error in class user"
+                message:"user.service.ts error in class user update"
             });
         }
     }
@@ -158,7 +159,7 @@ export class UserService{
             return Promise.reject({
                 error,
                 code:500,
-                message:"user.service.ts error in class user"
+                message:"user.service.ts error in class user delete"
             });
         }
     }
@@ -174,7 +175,7 @@ export class UserService{
             return Promise.reject({
                 error,
                 code:500,
-                message:"user.service.ts error in class user"
+                message:"user.service.ts error in class user hashPassword"
             });
         }
     }
@@ -217,6 +218,8 @@ export class UserService{
 
     //findUserByEmail
     async findUserByEmail(email:string): Promise<any> {
+
+
         try{
            
             await this.database.connect();
@@ -229,7 +232,7 @@ export class UserService{
             return Promise.reject({
                 error,
                 code:500,
-                message:"user.service.ts error in class user"
+                message:"user.service.ts error in class user findUserByEmail"
             });
         }
     }
@@ -248,7 +251,7 @@ export class UserService{
             return Promise.reject({
                 error,
                 code:500,
-                message:"user.service.ts error in class user"
+                message:"user.service.ts error in class user findUserById"
             });
         }
     }
@@ -267,7 +270,7 @@ export class UserService{
             return Promise.reject({
                 error,
                 code:500,
-                message:"user.service.ts error in class user"
+                message:"user.service.ts error in class user findUserByNit"
             });
         }
     }

@@ -1,8 +1,9 @@
 import { useState } from "react";
-import Input1 from "../inputs/input.1";
 import { HexColorPicker } from "react-colorful";
 import { useAppDispatch, useAppSelector } from "../../store";
 import SetTypePaylink from "../../services/set.type.paylink";
+import CreateProductForm from "../forms/create.product";
+import CreateServiceForm from "../forms/create.service";
 
 export interface Step{
     view:number,
@@ -89,7 +90,7 @@ export const Step2 = (props:Step):React.JSX.Element | null => {
 
     if(!views.includes(props.view)) return null;
 
-    const myformData = new FormData();
+    
     const statePayLink = useAppSelector(state => state.paylink);
     const dispatch = useAppDispatch();
 
@@ -146,43 +147,13 @@ export const Step2 = (props:Step):React.JSX.Element | null => {
             ?
             <>
             <div className="view-6 view-form-products w-[100%] ">
-                <form className="w-[96%] ml-[2%]  flex flex-wrap justify-start mt-4 mb-4" onSubmit={(e)=>e.preventDefault()}>
-                    <div className="w-[90%] m-2  md:w-[30%] p-2 ">
-                        <Input1 formData={myformData} type="text" placeholder="Ej: Camiseta XL" label="Nombre del producto" width="100%" />
-                    </div>
-                    <div className="w-[90%] m-2  md:w-[30%] p-2 ">
-                        <Input1 formData={myformData} type="number" placeholder="Ej: 500000" label="Precio" width="100%" />
-                    </div>
-                    <div className="w-[90%] m-2  md:w-[30%] p-2 ">
-                        <Input1 formData={myformData} type="number" placeholder="Ej: 19" label="IVA(%)" width="60%" />
-                    </div>
-                    <div className="w-[90%] m-2  md:w-[30%] p-2 ">
-                        <Input1 formData={myformData} type="text" placeholder="Ej: venta de par de camisetas cliente juan" label="Breve descripción" width="100%" />
-                    </div>
-                    <div className="w-[90%] m-2  md:w-[30%] p-2 ">
-                        <Input1 formData={myformData} type="file" placeholder="Añadir foto" label="Seleccionar archivo" width="100%" />
-                    </div>
+                {
+                    statePayLink.type === "product"
+                    ? <CreateProductForm />
+                    : <CreateServiceForm/>
 
-                    <div className="w-[90%] m-2  md:w-[30%] p-2 flex flex-col">
-                        <label className="text-[#6e6e6e]">Envío</label>
-                        <select className="w-[100%] h-[54px] rounded-[6px] bg-[#e6e6e6] border border-[#e6e6e6]">
-                            <option className="">Si</option>
-                            <option className="">No</option>
-
-                        </select>
-                    </div>
-
-                    <div className="w-[90%] m-2  md:w-[30%] p-2 ">
-                        <Input1 formData={myformData} type="number" placeholder="Ej: 26000" label="Precio del envío" width="100%" />
-                    </div>
-                    <div className="w-[90%] m-2  md:w-[30%] p-2 ">
-                        <Input1 formData={myformData} type="number" placeholder="Ej: 5" label="Stok disponible" width="100%" />
-                    </div>
-
-                    
-                    
-                        
-                </form>
+                }
+                
             </div>
                 
             </>

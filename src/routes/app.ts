@@ -11,6 +11,7 @@ const ReactRouter = Router();
  */
 
 ReactRouter.get("/",(req, res) => {
+  
   res.sendFile(path.join(__dirname, '../../frontend/dist', 'index.html'));
 });
 

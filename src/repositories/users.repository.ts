@@ -53,6 +53,7 @@ export class UserRepository {
     }
 
     async findUserByEmail(email: string): Promise<any> {
+
         const [rows]:any = await this.connection.execute(
             'SELECT * FROM usuario WHERE email = ?',
             [email]
