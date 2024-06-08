@@ -8,7 +8,8 @@ import CreateServiceForm from "../forms/create.service";
 export interface Step{
     view:number,
     data_view4?:{
-        createProductOrService:()=>void
+        createProductOrService:()=>void,
+        newProductOrService:()=>void
     }
 }
 
@@ -27,11 +28,12 @@ export  const Step0 = (props:Step):React.JSX.Element | null => {
             <>
             <div className="view-1 w-[100%] ">
                 <p className="w-[96%] ml-[2%] text-[18px] md:text-[20px] font-normal text-[#6e6e6e]">
-                    Vas a necesitar el <span className="text-[#4900FF]">access token</span> de tu aplicación de mercadopago.
-                    Recuerda que manetemos tu access token cifrado, dentro de la aplicación solo podras ver el token cifrado, no el original.
+                   We gare going to use the mercadopago app <span className="text-[#4900FF]">access token</span> 
+                   remember tath we keep your access token encrypted and secure, 
+                   within the application you will only be able to see a reference encrypted token.
                     <br></br>
                     
-                    Ejemplo credenciales mercadopago
+                    Example mercado pago credentials
                 </p>
                 <img className="w-[100%] mt-4" src="https://pay-service-cms.aipus.co/aipus-pay-service/assets/i7qyqr92928ko0ww" alt="imagen access token mercadopago" />
 
@@ -42,12 +44,12 @@ export  const Step0 = (props:Step):React.JSX.Element | null => {
             <>
             <div className="view-2 w-[100%] ">
                 <p className="w-[96%] ml-[2%] text-[18px] md:text-[20px] font-normal text-[#6e6e6e]">
-                    Vas a necesitar añadir la url de notificaciones similar a 
-                    <span className="text-[#4900FF] max-w-[250px] break-words"> dominio.com/api/v1/notifications/mercadopago </span> 
-                    y debes añadir el evento <strong>Pagos</strong>
+                    We need to add the url link notification similar to 
+                    <span className="text-[#4900FF] max-w-[250px] break-words"> domain.com/api/v1/notifications/mercadopago </span> 
+                    dont forget to add  <strong>Pagos</strong> envent
                     <br></br>
                     
-                    Ejemplo configuración webhooks mercadopago
+                   Example webhooks mercadopago set up
                 </p>
                 
                 <img className="w-[100%] mt-4" src="https://pay-service-cms.aipus.co/aipus-pay-service/assets/rjs3sl1q8lwso8ow" alt="imagen access token mercadopago" />
@@ -131,7 +133,7 @@ export const Step2 = (props:Step):React.JSX.Element | null => {
             <>
             <div className="view-5 w-[100%] ">
                 <div className="contauner-buttons w-[100%]  flex flex-col items-center justify-center flex-wrap mt-20">
-                    <button className="min-w-[230px] max-w-[420px] h-[50px] rounded-[9px] bg-[#5A8302] m-2">
+                    <button onClick={props.data_view4?.newProductOrService} className="min-w-[230px] max-w-[420px] h-[50px] rounded-[9px] bg-[#5A8302] m-2">
                         <p className="text-[18px] md:text-[20px] font-semibold text-white">{
                             statePayLink.type === "product" ? "Crear producto" : "Crear servicio"
                         } </p>

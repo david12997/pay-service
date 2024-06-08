@@ -1,48 +1,48 @@
-# Utilizamos una imagen base de Node
+# We use a base node js image
 FROM node:18-alpine as builder
 
-# Instalamos dependencias globales
+# install typescript and ts-node globally
 RUN npm install -g typescript ts-node
 
-# Definimos el directorio de trabajo para el backend
+# we define the working directory for backend
 WORKDIR /usr/src/app
 
-# Copiamos los archivos de package para el backend y frontend
+# Copy the package.json and package-lock.json files for backend and frontend
 COPY package*.json ./
 COPY frontend/package*.json ./frontend/
 
-# Instalamos las dependencias del backend
+# install all backend dependencies
 RUN npm install
 
-# Instalamos las dependencias del frontend
+# install all frontend dependencies
 WORKDIR /usr/src/app/frontend
 RUN npm install
 
-# Copiamos el resto del código fuente del backend
+# we copy the rest of the files
 WORKDIR /usr/src/app
 COPY . .
 
-# Construimos el backend
+# Build the backend
 RUN npm run build:backend
 
-# Construimos el frontend
+# Build the frontend
 WORKDIR /usr/src/app/frontend
 RUN npm run build
 
-# Etapa de producción
+# We use a new image for production
 FROM node:18-alpine as production
 
-# Copiamos el build del backend y el frontend al nuevo directorio de trabajo
+#  we copy the files from the builder image
 WORKDIR /usr/src/app
 COPY --from=builder /usr/src/app/dist ./dist
 COPY --from=builder /usr/src/app/frontend/dist ./frontend/dist
 COPY package*.json ./
 
-# Instalamos solo las dependencias de producción
+# we install only the production dependencies
 RUN npm install --only=production
 
-# Exponemos el puerto que utiliza nuestro servidor de Express
+#  we expose the port 3001
 EXPOSE 3001
 
-# Ejecutamos el servidor de Express
+# we run the server
 CMD ["node", "dist/server.js"]

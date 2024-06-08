@@ -49,19 +49,19 @@ const NaigationApp = ():React.JSX.Element => {
             <div className={`container-options w-[80%] ${activeMenu ?'ml-[10%]' : 'ml-[18%]'} mt-[60px] h-[64%] cursor-pointer`}>
                 <ul className="mylist flex flex-col items-center h-[100%] justify-between">
                     <li onClick={()=>router('/home')} className={` ${ activeMenu ? "justify-start" :"justify-center"} w-[100%] flex items-center  text-white font-bold text-[18px] md:text-[20px]`}> 
-                        <span className="mr-4"><IconHome/> </span>{ activeMenu ? " Inicio": ""}
+                        <span className="mr-4"><IconHome/> </span>{ activeMenu ? " Home": ""}
                     </li>
                     <li className={` ${ activeMenu ? "justify-start" :"justify-center"} w-[100%] flex items-center  text-white font-bold text-[18px] md:text-[20px]`}>
-                        <span className="mr-4"><IconInventario/></span> { activeMenu ? " Inventario": ""} 
+                        <span className="mr-4"><IconInventario/></span> { activeMenu ? " Inventory": ""} 
                     </li>
                     <li onClick={()=>router('/new-link')} className={` ${ activeMenu ? "justify-start" :"justify-center"} w-[100%] flex items-center  text-white font-bold text-[18px] md:text-[20px]`}>
-                        <span className="mr-4"><IcoCrearLink/></span> { activeMenu ? " Crear link": ""}
+                        <span className="mr-4"><IcoCrearLink/></span> { activeMenu ? " Create link": ""}
                     </li>
                     <li className={` ${ activeMenu ? "justify-start" :"justify-center"} w-[100%] flex items-center  text-white font-bold text-[18px] md:text-[20px]`}>
-                        <span className="mr-4"><IconProveedores/></span> { activeMenu ? " Proveedores": ""}
+                        <span className="mr-4"><IconProveedores/></span> { activeMenu ? " Providers": ""}
                     </li>
                     <li onClick={Salir} className={` ${ activeMenu ? "justify-start" :"justify-center"} w-[100%] flex items-center  text-white font-bold text-[18px] md:text-[20px]`}>
-                        <span className="mr-4"><IconSalir/></span> { activeMenu ? " Salir": ""}
+                        <span className="mr-4"><IconSalir/></span> { activeMenu ? " Sign out": ""}
                     </li>
                 </ul>
             </div>

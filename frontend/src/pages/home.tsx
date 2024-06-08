@@ -28,12 +28,12 @@ const HomePage = ():React.JSX.Element => {
 
                             <div className="w-[100%] md:w-[40%] container-buttons min-w-[270px] flex flex-col justify-center items-center">
                                 <ButtonIcon 
-                                    text='Crear Link' 
+                                    text='Create Link' 
                                     icon={<IcoCrearLink/>}
                                     width='260px'
                                 />
                                 <ButtonIcon 
-                                    text='Inventario' 
+                                    text='Inventory' 
                                     icon={<IconInventario/>}
                                     background='#0087A8'
                                     width='260px'
@@ -45,13 +45,13 @@ const HomePage = ():React.JSX.Element => {
                         <div className="structure-2-homepage w-[100%] md:m-4">
                             <>
                                 <hr className='w-[94%] ml-[3%] h-[2px] bg-[#adadad] mt-8 mb-8' />
-                                <h1 className='m-2 text-[18px] md:text-[20px] text-black font-bold'>Mis links de pago</h1>
+                                <h1 className='m-2 text-[18px] md:text-[20px] text-black font-bold'>My Paylinks</h1>
                                 <section className='section-empty-links-index flex justify-center items-center m-2  bg-white w-[95%]  rounded-[9px] min-h-[400px] '>
                                     <div className="container-empty border">
                                         <div className="icon w-[100%] flex justify-center">
                                             <IconWarning/>
                                         </div>
-                                        <p className='text-[18px] font-bold text-[#6e6e6e] mt-2'>Aún no tienes links de pago creados</p>
+                                        <p className='text-[18px] font-bold text-[#6e6e6e] mt-2'>You don't have paylinks created yet</p>
                                         
                                     </div>
                                 </section>

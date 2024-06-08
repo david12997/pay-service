@@ -53,28 +53,28 @@ const MenuMobileIndex = (props:MenuMobileProps):React.JSX.Element => {
             <div className="container-body">
                 <button className="ml-2 mr-2 mt-8 w-[94%] h-[50px] bg-[#0087A8] rounded-[9px] text-white">
                   <p>
-                      Inicio
+                      Home
                   </p>
                 </button>
                 <button className="ml-2 mr-2 mt-8 w-[94%] h-[50px] bg-[#2e28b7] rounded-[9px] text-white">
                   <p>
-                      Planes
+                      Plans
                   </p>
                 </button>
                 <button className="ml-2 mr-2 mt-8 w-[94%] h-[50px] bg-[#2e28b7] rounded-[9px] text-white">
                   <p>
-                      Contacto
+                      Contact
                   </p>
                 </button>
                 <button onClick={()=>router('/ingresar')} className="ml-2 mr-2 mt-8 w-[94%] h-[50px] bg-[#2e28b7] rounded-[9px] text-white">
                   <p>
-                      Ingresar
+                      Login
                   </p>
                 </button>
 
               <button onClick={()=>router('/registrarse')} className="ml-2 mr-2 mt-8 w-[94%] h-[50px] bg-[#2E28B7] rounded-[9px] text-white">
                   <p>
-                      Empieza gratis
+                      Start Free
                   </p>
               </button>
                 </div>

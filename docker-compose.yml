@@ -4,7 +4,7 @@ services:
     image: mysql:8.0
     volumes:
       - db_data:/var/lib/mysql
-      - ./create.database.sql:/docker-entrypoint-initdb.d/create.database.sql  # Monta tu script aquí
+      - ./create.database.sql:/docker-entrypoint-initdb.d/create.database.sql  # your script here
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
@@ -17,11 +17,11 @@ services:
   app:
     depends_on:
       - db
-    image: pay-service:v0.0.1  # Tu imagen personalizada
+    image: pay-service:v0.0.1  # your personalized image
     volumes:
       - .:/usr/src/app
     working_dir: /usr/src/app
-    command: bash -c "npm install && npm run dev"  # Asegúrate de que este comando es adecuado para tu imagen
+    command: bash -c "npm install && npm run dev"  # your command here
     ports:
       - "3001:3001"
     environment:

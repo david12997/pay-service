@@ -4,7 +4,8 @@ export interface Input1Props{
     width:string,
     type:string,
     placeholder:string,
-    formData : FormData
+    formData : FormData,
+    name:string
 
 
 }
@@ -17,13 +18,17 @@ const Input1 = (props:Input1Props):JSX.Element =>{
         width: props.width,
     }
 
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        props.formData.set(e.target.name, e.target.value);
+    }
+
     const handleUploadedFile = (e:React.ChangeEvent<HTMLInputElement>) =>{
 
         if (!e.target.files || e.target.files.length === 0) return;
 
         const file = e.target.files[0];
         if (file.size > 2 * 1024 * 1024) {
-            alert('El archivo es demasiado grande.');
+            alert('The file is too big!');
             return;
           }
 
@@ -37,7 +42,7 @@ const Input1 = (props:Input1Props):JSX.Element =>{
             <div style={style} className="field flex flex-col w-[50%] ">
                 <label className="text-[#6e6e6e]">{props.placeholder}</label>
                 <label htmlFor="input-photo" className="text-[#6e6e6e] cursor-pointer  bg-[#e6e6e6] h-[54px] rounded-[6px] w-[100%] text-center flex items-center justify-center">{props.label}</label>
-                <input onChange={handleUploadedFile} accept=".jpg,.png,.jpeg,.svg,.webp" id="input-photo" type={props.type} placeholder={props.placeholder} className="hidden"/>
+                <input  name={props.name} onChange={handleUploadedFile} accept=".jpg,.png,.jpeg,.svg,.webp" id="input-photo" type={props.type} placeholder={props.placeholder} className="hidden"/>
             </div>
         </>
     }else{
@@ -45,7 +50,7 @@ const Input1 = (props:Input1Props):JSX.Element =>{
         return<>
             <div style={style} className="field flex flex-col w-[50%]">
                 <label className="text-[#6e6e6e]">{props.label}</label>
-                <input type={props.type} placeholder={props.placeholder} className="rounded-[6px] h-[54px] bg-[#e6e6e6] text-[#6e6e6e] border border-[#e6e6e6]"   />
+                <input onChange={handleChange} name={props.name} type={props.type} placeholder={props.placeholder} className="rounded-[6px] h-[54px] bg-[#e6e6e6] text-[#6e6e6e] border border-[#e6e6e6]"   />
             </div>
         </>
     }

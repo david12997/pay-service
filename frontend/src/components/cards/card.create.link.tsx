@@ -1,5 +1,8 @@
+import { useEffect } from "react"
+import { useAppDispatch, useAppSelector } from "../../store"
 import CircleStep from "../common/circle.step"
 import { IconArrowLeft, IconCartCreateLink } from "../icons/coommon"
+import { setBtnNextVisible } from "../../store/paylink"
 
 export type CardCreateLinkProps = {
     view: number,
@@ -22,6 +25,21 @@ export type CardCreateLinkProps = {
 const CardCreateLink = (props:CardCreateLinkProps):React.JSX.Element => {
 
     const stepsArr = Array.from(Array(props.steps).keys());
+    const statePaylink = useAppSelector((state) => state.paylink);
+    const dispatch = useAppDispatch();
+
+
+    useEffect(()=>{
+
+        const viewNextBtnHidden = [4,5,6]
+
+        if(viewNextBtnHidden.includes(props.view) ) {
+            dispatch(setBtnNextVisible({btnNextVisible:false}));
+        }else{
+            dispatch(setBtnNextVisible({btnNextVisible:true}));
+        }
+
+    },[props.step])
 
 
     return<>
@@ -64,24 +82,26 @@ const CardCreateLink = (props:CardCreateLinkProps):React.JSX.Element => {
                 <>
                     <div className="container-button w-[100%] flex flex-wrap absolute bottom-[20px]  items-center justify-center">
                         <button className="mb-2 md:mb-0 md:mr-2 rounded-[6px] w-[250px] h-[60px] text-[20px] font-semibold text-white  bg-[#6e6e6e]">
-                           Guardar
+                           Save
                         </button>
                         <button className="mt-2 md:mt-0 md:ml-2 rounded-[6px]  w-[250px] h-[60px] text-[20px] font-semibold text-white  bg-[#6e6e6e]">
-                            Siguiente
+                            Next
                         </button>
                     </div>
             
                 </>
                 :
                 <>
-                    <div className="container-button w-[100%] flex  absolute bottom-[20px]  items-center justify-center">
+                    <div className="container-button w-[100%] flex absolute bottom-[100px]  items-center justify-center">
+                    
                         {
-                            props.view !== 4 // this mview you need to select if you want to sell a new product or a service
-                            &&
-                            <button onClick={props.clickButtoNext} className="rounded-[6px] w-[90%] min-w-[250px] max-w-[450px] h-[60px] text-[20px] font-semibold text-white  bg-[#602AE8]">
-                                {props.button_text}
-                            </button>
+                            statePaylink.btnNextVisible &&
+                                <button onClick={props.clickButtoNext} className="bottom-[10px] fixed rounded-[6px] w-[50%] md:w-[70%] min-w-[250px] max-w-[450px] h-[60px] text-[20px] font-semibold text-white  bg-[#602AE8]">
+                                    {props.button_text}
+                                </button>
                         }
+                        
+                
                         
                     </div>
                 </>

@@ -17,16 +17,16 @@ const NewLinkPage = ():JSX.Element => {
 
     const handleTitle = (view:number):string => {
 
-        return view === 1 ?  "Antes de empezar"
-        : view === 2 ? "Añadir evento"
-        : view === 3 ? "Añadir Access Token "
-        : view === 4 ? "¿Qué  quieres vender?"
-        : view === 5 ? ` ${statePaylink.type === "product" ? "Importar Producto" : "Importar Servicio"}`
-        : view === 6 ? ` ${statePaylink.type === "product" ? "Formulario Producto" : "Formulario Servicio"}`
+        return view === 1 ?  "Before Start"
+        : view === 2 ? "Add Event"
+        : view === 3 ? "Add Access Token"
+        : view === 4 ? "What do you sell?"
+        : view === 5 ? ` ${statePaylink.type === "product" ? "Import Product" : "Import Service"}`
+        : view === 6 ? ` ${statePaylink.type === "product" ? "Create Product " : "Create Service"}`
         : view === 7 ? ` ${statePaylink.type === "product" ? "Añadir Producto" : "Añadir Servicio"}`
-        : view === 8 ? "Color de la interfaz"
-        : view === 9 ? "Configurar link"
-        : 'Datos del producto' 
+        : view === 8 ? "UI Colors"
+        : view === 9 ? "Setup link"
+        : 'Default' 
     }
 
 
@@ -42,14 +42,14 @@ const NewLinkPage = ():JSX.Element => {
 
                 <NaigationApp/>
                 <div className="pt-4 md:pt-0 relative container-page h-[100%] w-[80%] ml-[20%] md:ml-[15%] border border-black overflow-y-scroll overflow-x-hidden">
-                    <h1 className="text-[18px] text-[#6e6e6e] m-2 md:m-8 font-semibold">Crear link de pago</h1>
+                    <h1 className="text-[24px] text-[#6e6e6e] m-2 md:m-8 font-extrabold">Create Paylink</h1>
 
                     <CardCreateLink
                         view={view}
                         steps={4}
                         step={step}
                         title={handleTitle(view)}
-                        button_text="Siguiente"
+                        button_text="Next"
                         addItmes={false}
                         clickButtoNext={()=>{
 
@@ -80,10 +80,12 @@ const NewLinkPage = ():JSX.Element => {
                             step === 1 && <Step1 view={view} />
                         }
                         {
-                            step === 2 && <Step2 view={view} data_view4={{createProductOrService:()=>{
-                                setView(5);
+                            step === 2 && <Step2 view={view} data_view4={{
+                                createProductOrService:()=>setView(5),
+                                newProductOrService:()=>setView(6)
+                                
                             
-                            }}} />
+                            }} />
                         }
 
                         {
