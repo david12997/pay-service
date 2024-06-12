@@ -1,3 +1,4 @@
+import { useState } from "react";
 
 export interface Input1Props{
     label:string,
@@ -5,14 +6,16 @@ export interface Input1Props{
     type:string,
     placeholder:string,
     formData : FormData,
-    name:string
-
+    name:string,
+    required:boolean,
+   
 
 }
 
 
 const Input1 = (props:Input1Props):JSX.Element =>{
 
+    const [stateTextInputFile, setStateTextInputFile] = useState<string>(props.label);
   
     const style = {
         width: props.width,
@@ -33,6 +36,10 @@ const Input1 = (props:Input1Props):JSX.Element =>{
           }
 
         props.formData.append("file", file);
+        setStateTextInputFile('Selected')
+        
+
+        
 
     
     }
@@ -41,7 +48,7 @@ const Input1 = (props:Input1Props):JSX.Element =>{
         return<>
             <div style={style} className="field flex flex-col w-[50%] ">
                 <label className="text-[#6e6e6e]">{props.placeholder}</label>
-                <label htmlFor="input-photo" className="text-[#6e6e6e] cursor-pointer  bg-[#e6e6e6] h-[54px] rounded-[6px] w-[100%] text-center flex items-center justify-center">{props.label}</label>
+                <label htmlFor="input-photo" className="text-[#6e6e6e] cursor-pointer  bg-[#e6e6e6] h-[54px] rounded-[6px] w-[100%] text-center flex items-center justify-center">{stateTextInputFile}</label>
                 <input  name={props.name} onChange={handleUploadedFile} accept=".jpg,.png,.jpeg,.svg,.webp" id="input-photo" type={props.type} placeholder={props.placeholder} className="hidden"/>
             </div>
         </>
@@ -50,7 +57,7 @@ const Input1 = (props:Input1Props):JSX.Element =>{
         return<>
             <div style={style} className="field flex flex-col w-[50%]">
                 <label className="text-[#6e6e6e]">{props.label}</label>
-                <input onChange={handleChange} name={props.name} type={props.type} placeholder={props.placeholder} className="rounded-[6px] h-[54px] bg-[#e6e6e6] text-[#6e6e6e] border border-[#e6e6e6]"   />
+                <input required={props.required} onChange={handleChange} name={props.name} type={props.type} placeholder={props.placeholder} className="rounded-[6px] h-[54px] bg-[#e6e6e6] text-[#6e6e6e] border border-[#e6e6e6]"   />
             </div>
         </>
     }
