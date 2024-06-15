@@ -17,6 +17,9 @@ const InventoryRoutes = Router();
 
 InventoryRoutes.post("/product/",authenticateToken,multerAdapter.single('file'), (req: Request, res: Response) => {
 
+    console.log(req.file, 'file');
+    console.log(req.body, 'body');
+
     try{
        
         const controllerInventory = new inventoryController();

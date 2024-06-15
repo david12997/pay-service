@@ -1,13 +1,17 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import Input1 from "../inputs/input.1"
+import { SendData } from "../../helpers/send.data";
+import { useAppSelector } from "../../store";
 
 const CreateProductForm = ():React.JSX.Element=>{
 
-    const [statusDelivery, setStatusDelivery ] = useState<boolean>(true)
+    const [statusDelivery, setStatusDelivery ] = useState<boolean>(true);
+    const  stateUser = useAppSelector((state) => state.user);
 
     // form data to send to the server and create a new product
-    const myformData = new FormData();
+    const myformData = useRef(new FormData()).current;
     const CreateNewProduct = async (e:React.FormEvent<HTMLFormElement>) =>{
+
         e.preventDefault();
 
         // fileds required
@@ -24,7 +28,7 @@ const CreateProductForm = ():React.JSX.Element=>{
 
         
         //verify if the form data is correct
-        for (const [key, value] of myformData.entries()) {
+        for (const [_, value] of myformData.entries()) {
 
             if (value instanceof File){
                 if(value.size > 5000000){
@@ -38,11 +42,31 @@ const CreateProductForm = ():React.JSX.Element=>{
                     return;
                 }
             }
-
-            
            
             
         }
+
+
+        // add user data to the form data
+        myformData.append('owner', '1');
+        myformData.append('status', 'published');
+        myformData.append('email_user', stateUser.email as string); 
+
+        // status delivery 
+        if(statusDelivery) myformData.append('delivery', 'Si');
+        else myformData.append('delivery', 'No');
+        
+
+
+        //send the data to the server
+        try{
+            const CreateProduct = await SendData([process.env.API_URL+'/inventory/product'],'POST',myformData,stateUser.token as string);
+            console.log(CreateProduct);
+        }catch(e){
+            console.log(e);
+            alert('Error creating the product');
+        }
+       
 
     }
 

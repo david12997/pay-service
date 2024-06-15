@@ -7,6 +7,10 @@ export class inventoryController{
     
     //POST /api/v1/inventory/product/
     async createProduct(req: any, res: any) {
+
+        console.log(req.file)
+        console.log(req.body)
+
         try{
             
             

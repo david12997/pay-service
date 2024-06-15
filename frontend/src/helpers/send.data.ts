@@ -1,37 +1,29 @@
-export const SendData = async(urls:string[],method:string,body?:string,token?:string,) =>{
+export const SendData = async (urls: string[], method: string, body?: BodyInit | string, token?: string) => {
+    try {
+        const promises: any[] = [];
 
-    try{
+        urls.forEach((url: string, index: number) => {
+            const headers: HeadersInit = {
+                'Accept': 'application/json'
+            };
 
+            if (token) { headers['Authorization'] = `Bearer ${token}`;}
 
-        const promises:any[] = [];
+            // Only set 'Content-Type' if body is not FormData
+            if (!(body instanceof FormData)) { headers['Content-Type'] = 'application/json';}
 
-        urls.forEach((url:string, index:number)=>{
             
-            promises[index] = fetch(url,{
-                method:method,
-                headers:token !== undefined ? {
-                    'Content-Type': 'application/json',
-                    'Accept': 'application/json',
-                    'Authorization': `Bearer ${token}`
-                    
-                }:{
-                    'Content-Type': 'application/json',
-                    'Accept': 'application/json'
-                },
-                body:body
-            
-            })           
-        
+            promises[index] = fetch(url, {
+                method: method,
+                headers: headers,
+                body: body
+            });
         });
 
         const response = await Promise.all(promises);
-        return await Promise.all(response.map(res=>res.json()))
-    
-        
-    
-    } catch (error) {  
-        
+        return await Promise.all(response.map(res => res.json()));
+
+    } catch (error) {
         throw error;
     }
-    
-}
+};

@@ -69,29 +69,38 @@ const LoginPage = ():React.JSX.Element => {
 
         e.preventDefault();
         dispatch(setLoading(true));
-        const Login = await SendData([process.env.API_URL+'/user/sign-in'],'POST',JSON.stringify({
-            email: emailRef.current?.value,
-            password: passwordRef.current?.value,
-        }))
 
-        console.log(Login);
-        if(Login[0].user !== undefined || Login[0].user !== null || Login[0].user !== ''){
-            dispatch(actionLogin({
-                name: Login[0].user.username,
-                email: Login[0].user.email,
-                phone: Login[0].user.phone,
-                loading: false,
-                token: Login[0].token,
+        try{
+
+            const Login = await SendData([process.env.API_URL+'/user/sign-in'],'POST',JSON.stringify({
+                email: emailRef.current?.value,
+                password: passwordRef.current?.value,
+            }))
+    
+            // verify the user response data
+            if(Login[0].user !== undefined || Login[0].user !== null || Login[0].user !== ''){
+                dispatch(actionLogin({
+                    name: Login[0].user.username,
+                    email: Login[0].user.email,
+                    phone: Login[0].user.phone,
+                    loading: false,
+                    token: Login[0].token,
+                
+                }));
+                router('/home');
+    
+            }else{
+                console.log('error');
+                alert('Error in the login');
+            }
+
             
-            }));
-
-
-            router('/home');
-
-
-        }else{
-            console.log('error');
+        }catch(e){
+            console.log(e);
+            alert('Error in the login');
         }
+
+        
     }
 
 

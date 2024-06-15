@@ -23,6 +23,8 @@ const Input1 = (props:Input1Props):JSX.Element =>{
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         props.formData.set(e.target.name, e.target.value);
+        console.log(props.formData.get(e.target.name));
+        
     }
 
     const handleUploadedFile = (e:React.ChangeEvent<HTMLInputElement>) =>{
@@ -57,7 +59,7 @@ const Input1 = (props:Input1Props):JSX.Element =>{
         return<>
             <div style={style} className="field flex flex-col w-[50%]">
                 <label className="text-[#6e6e6e]">{props.label}</label>
-                <input required={props.required} onChange={handleChange} name={props.name} type={props.type} placeholder={props.placeholder} className="rounded-[6px] h-[54px] bg-[#e6e6e6] text-[#6e6e6e] border border-[#e6e6e6]"   />
+                <input required={props.required} onBlur={handleChange} name={props.name} type={props.type} placeholder={props.placeholder} className="rounded-[6px] h-[54px] bg-[#e6e6e6] text-[#6e6e6e] border border-[#e6e6e6] focus:text-black focus:font-semibold"   />
             </div>
         </>
     }
